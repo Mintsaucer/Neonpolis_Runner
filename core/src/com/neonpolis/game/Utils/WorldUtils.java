@@ -3,6 +3,7 @@ package com.neonpolis.game.Utils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -21,6 +22,7 @@ public class WorldUtils {
         return new World(Constants.WORLD_GRAVITY, true);
     }
 
+    // Create ground of the world
     public static Body createGround(World world) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(new Vector2(Constants.GROUND_X, Constants.GROUND_Y));
@@ -33,11 +35,13 @@ public class WorldUtils {
         return body;
     }
 
+    // create runner guy
     public static Body createRunner(World world) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(new Vector2(Constants.RUNNER_X, Constants.RUNNER_Y));
         PolygonShape shape = new PolygonShape();
+        shape.setRadius(Constants.RUNNER_WIDTH / 2);
         shape.setAsBox(Constants.RUNNER_WIDTH / 2, Constants.RUNNER_HEIGHT / 2);
         Body body = world.createBody(bodyDef);
         body.setGravityScale(Constants.RUNNER_GRAVITY_SCALE);
@@ -48,6 +52,7 @@ public class WorldUtils {
         return body;
     }
 
+    // create enemies
     public static Body createEnemy(World world) {
         EnemyType enemyType = RandomUtils.getRandomEnemyType();
         BodyDef bodyDef = new BodyDef();

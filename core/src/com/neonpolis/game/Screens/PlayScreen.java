@@ -32,12 +32,11 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(Neonpolis game){
         stage = new GameStage();
-        // this.game = game;
+        this.game = game;
     }
 
     @Override
     public void show() {
-
     }
 
     @Override
@@ -50,9 +49,7 @@ public class PlayScreen implements Screen {
         stage.act(delta);
     }
 
-
     public void handleInput() {
-
     }
 
     public void update (float dt) {
@@ -60,26 +57,21 @@ public class PlayScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override
     public void dispose() {
-
     }
 }
