@@ -10,13 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.neonpolis.game.Screens.PlayScreen;
 
 public class Neonpolis extends Game {
-
+ /*
 	// Virtual resolution if need that with viewports
 	public static final int V_WIDTH = 200;
 	public static final int V_HEIGHT = 200;
 	// Pixel per meter
 	public static final float PPM = 100;
-
+*/
 
 	// Manage all music, sounds
 	public static AssetManager manager;

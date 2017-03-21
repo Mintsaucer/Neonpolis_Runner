@@ -7,5 +7,6 @@ package com.neonpolis.game.Enums;
 public enum UserDataType {
 
     GROUND,
-    RUNNER
+    RUNNER,
+    ENEMY
 }
