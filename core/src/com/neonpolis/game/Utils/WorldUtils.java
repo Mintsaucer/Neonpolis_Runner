@@ -41,7 +41,6 @@ public class WorldUtils {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(new Vector2(Constants.RUNNER_X, Constants.RUNNER_Y));
         PolygonShape shape = new PolygonShape();
-        shape.setRadius(Constants.RUNNER_WIDTH / 2);
         shape.setAsBox(Constants.RUNNER_WIDTH / 2, Constants.RUNNER_HEIGHT / 2);
         Body body = world.createBody(bodyDef);
         body.setGravityScale(Constants.RUNNER_GRAVITY_SCALE);
