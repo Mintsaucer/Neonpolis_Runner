@@ -115,6 +115,7 @@ public class GameStage extends Stage implements ContactListener {
 
     private void createEnemy() {
         Enemy enemy = new Enemy(WorldUtils.createEnemy(world));
+        if ( !runner.isHit())
         addActor(enemy);
     }
 
