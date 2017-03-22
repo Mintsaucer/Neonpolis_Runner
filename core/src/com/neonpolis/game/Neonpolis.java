@@ -1,13 +1,12 @@
 package com.neonpolis.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
+
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.neonpolis.game.Screens.PlayScreen;
+import com.neonpolis.game.Screens.SplashScreen;
 
 public class Neonpolis extends Game {
  /*
@@ -24,14 +23,15 @@ public class Neonpolis extends Game {
 	// All textures go to batch
 	public SpriteBatch batch;
 
-
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		manager = new AssetManager();
 		// manager.load(" tänne_musiikkia.ogg ", Music.class);
 		// manager.finishLoading();
-		setScreen(new PlayScreen(this));
+
+		// Splashscreen starts first
+		setScreen(new SplashScreen(this));
 	}
 
 	@Override
