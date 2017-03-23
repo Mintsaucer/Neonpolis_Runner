@@ -40,7 +40,7 @@ public class SplashScreen implements Screen {
 
         // playscreen starts when screen is touched.
         if(Gdx.input.justTouched())
-            game.setScreen(new PlayScreen(game));
+            game.setScreen(new MenuScreen(game));
     }
 
     @Override
