@@ -26,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.neonpolis.game.Neonpolis;
 
@@ -40,27 +41,50 @@ public class MenuScreen implements Screen {
     private Neonpolis game;
     private SpriteBatch batch;
     private Stage stage;
-    private Texture myTexture;
+
     private TextureRegion myTextureRegion;
-    private TextureRegionDrawable myTexRegionDrawable;
-    private ImageButton button;
+    private TextureRegionDrawable myTexRegionDrawablePlay, myTexRegionDrawableLoad, myTexRegionDrawableSetting, myTexRegionDrawableSoundSetting;
+    private ImageButton button, button2, button3, button4;
     private Table table;
-    FitViewport viewport;
+
+    public static Texture backgroundTexture, playTexture, loadTexture, settingTexture, soundSettingTexture;
 
     public MenuScreen (final Neonpolis game) {
         this.game = game;
 
-        viewport = new FitViewport(200, 200, new OrthographicCamera());
-        stage = new Stage(viewport);
+        stage = new Stage();
+        batch = new SpriteBatch();
 
-        myTexture = new Texture("flatDark24.png");
-        myTextureRegion = new TextureRegion(myTexture);
-        myTexRegionDrawable = new TextureRegionDrawable(myTextureRegion);
-        button = new ImageButton(myTexRegionDrawable);
+        backgroundTexture = new Texture("background.png");
+
+        playTexture = new Texture("newgame.png");
+        loadTexture = new Texture("loadgame.png");
+        settingTexture = new Texture("setting.png");
+        soundSettingTexture = new Texture("soundsetting.png");
+
+        myTextureRegion = new TextureRegion(playTexture);
+        myTexRegionDrawablePlay = new TextureRegionDrawable(myTextureRegion);
+
+        myTextureRegion = new TextureRegion(loadTexture);
+        myTexRegionDrawableLoad = new TextureRegionDrawable(myTextureRegion);
+
+        myTextureRegion = new TextureRegion(settingTexture);
+        myTexRegionDrawableSetting = new TextureRegionDrawable(myTextureRegion);
+
+        myTextureRegion = new TextureRegion(soundSettingTexture);
+        myTexRegionDrawableSoundSetting = new TextureRegionDrawable(myTextureRegion);
+
+        button = new ImageButton(myTexRegionDrawablePlay);
+        button2 = new ImageButton(myTexRegionDrawableLoad);
+        button3 = new ImageButton(myTexRegionDrawableSetting);
+        button4 = new ImageButton(myTexRegionDrawableSoundSetting);
 
         table = new Table();
-        table.add(button).center().top();
+        table.add(button).top();
+        table.add(button2);
         table.row();
+        table.add(button3);
+        table.add(button4);
 
         table.setFillParent(true);
 
@@ -83,8 +107,9 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.end();
 
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();

@@ -21,7 +21,7 @@ public class SplashScreen implements Screen {
         this.game = game;
 
         batch = new SpriteBatch();
-        textureSplash = new Texture("badlogic.jpg");
+        textureSplash = new Texture("startscreen.png");
     }
 
     @Override
