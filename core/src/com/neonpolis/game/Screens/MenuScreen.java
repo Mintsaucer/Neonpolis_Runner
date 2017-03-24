@@ -29,6 +29,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.neonpolis.game.Neonpolis;
+import com.neonpolis.game.Stages.GameStage;
 
 import java.awt.Color;
 
@@ -46,14 +47,29 @@ public class MenuScreen implements Screen {
     private TextureRegionDrawable myTexRegionDrawablePlay, myTexRegionDrawableLoad, myTexRegionDrawableSetting, myTexRegionDrawableSoundSetting;
     private ImageButton button, button2, button3, button4;
     private Table table;
+    private OrthographicCamera camera;
+    ScreenViewport viewport;
 
     public static Texture backgroundTexture, playTexture, loadTexture, settingTexture, soundSettingTexture;
 
     public MenuScreen (final Neonpolis game) {
         this.game = game;
 
-        stage = new Stage();
         batch = new SpriteBatch();
+        camera = new OrthographicCamera();
+        viewport = new ScreenViewport( camera);
+        viewport.apply();
+
+        camera.position.set(camera.viewportHeight, camera.viewportHeight, 0);
+        camera.update();
+
+        stage = new Stage(viewport, batch);
+
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    @Override
+    public void show() {
 
         backgroundTexture = new Texture("background.png");
 
@@ -80,13 +96,14 @@ public class MenuScreen implements Screen {
         button4 = new ImageButton(myTexRegionDrawableSoundSetting);
 
         table = new Table();
-        table.add(button).top();
+        table.add(button).pad(30);
         table.add(button2);
-        table.row();
+        table.row().pad(30);
         table.add(button3);
         table.add(button4);
+        table.setSize(1000,1000);
 
-        table.setFillParent(true);
+        //table.setFillParent(true);
 
         stage.addActor(table); //Add the button to the stage
         Gdx.input.setInputProcessor(stage);
@@ -98,10 +115,6 @@ public class MenuScreen implements Screen {
                 game.setScreen( new PlayScreen(game));
             }
         });
-    }
-
-    @Override
-    public void show() {
 
     }
 
@@ -137,6 +150,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
 
     }
 }
