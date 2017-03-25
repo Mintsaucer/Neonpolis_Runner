@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.neonpolis.game.Neonpolis;
+import com.neonpolis.game.Scenes.Hud;
 import com.neonpolis.game.Stages.GameStage;
 
 /**
@@ -15,10 +16,13 @@ public class PlayScreen implements Screen {
 
     private GameStage stage;
     private Neonpolis game;
+    private Hud hud;
 
     public PlayScreen(Neonpolis game){
         stage = new GameStage();
         this.game = game;
+        hud = new Hud(game.batch);
+
     }
 
     @Override
@@ -34,6 +38,9 @@ public class PlayScreen implements Screen {
         //update stage
         stage.draw();
         stage.act(delta);
+
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
     }
 
     public void handleInput() {
