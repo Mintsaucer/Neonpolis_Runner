@@ -103,8 +103,6 @@ public class MenuScreen implements Screen {
         table.add(button4);
         table.setSize(1000,1000);
 
-        //table.setFillParent(true);
-
         stage.addActor(table); //Add the button to the stage
 
         // menu button listeners

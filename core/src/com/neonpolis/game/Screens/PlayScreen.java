@@ -2,11 +2,16 @@ package com.neonpolis.game.Screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.neonpolis.game.Neonpolis;
 import com.neonpolis.game.Scenes.Hud;
 import com.neonpolis.game.Stages.GameStage;
+
+import static sun.audio.AudioPlayer.player;
 
 /**
  * Created by nikom on 20.3.2017.
@@ -22,7 +27,6 @@ public class PlayScreen implements Screen {
         stage = new GameStage(game);
         this.game = game;
         hud = new Hud(game.batch);
-
     }
 
     @Override
@@ -43,7 +47,7 @@ public class PlayScreen implements Screen {
         hud.stage.draw();
     }
 
-    public void handleInput() {
+    public void handleInput(float dt) {
     }
 
     public void update (float dt) {

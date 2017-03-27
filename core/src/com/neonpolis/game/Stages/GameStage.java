@@ -3,6 +3,7 @@ package com.neonpolis.game.Stages;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g3d.particles.values.RectangleSpawnShapeValue;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -52,6 +53,7 @@ public class GameStage extends Stage implements ContactListener {
     private Rectangle screenRightSide;
     private Rectangle screenLeftSide;
     private Vector3 touchPoint;
+
 
     public GameStage(Neonpolis game) {
         this.game = game;
@@ -145,8 +147,10 @@ public class GameStage extends Stage implements ContactListener {
 
         if (rightSideTouched(touchPoint.x, touchPoint.y)) {
             runner.jump();
+            runner.moveRight();
         } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
-            runner.dodge();
+            //runner.dodge();
+            runner.moveLeft();
         }
 
         return super.touchDown(x, y, pointer, button);

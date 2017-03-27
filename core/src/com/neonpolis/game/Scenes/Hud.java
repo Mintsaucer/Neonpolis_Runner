@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.g2d.DistanceFieldFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.particles.values.PrimitiveSpawnShapeValue;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -38,9 +40,7 @@ public class Hud {
 
     private Table table;
 
-
     private static Texture hudUIPicture;
-
 
     //Integers for gold and diamonds
     private Integer gold;
@@ -67,7 +67,6 @@ public class Hud {
         table.add(pauseBtn).padTop(10);
         table.setPosition(1,637);
         table.setSize(656,423);
-
 
         //Wrapper and setting position for text objects (health bar text, name, scores, diamonds)
         goldLabel = new Label(String.format("%04d", gold), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -98,9 +97,5 @@ public class Hud {
         stage.addActor(goldWrapper);
         stage.addActor(diamWrapper);
         stage.addActor(charWrapper);
-
-
     }
-
-
 }

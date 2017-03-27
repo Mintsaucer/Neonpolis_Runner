@@ -33,10 +33,14 @@ public class GameOverScreen implements Screen {
     private OrthographicCamera camera;
     ScreenViewport viewport;
 
-    Label gameOver;
+    private int score;
+
+    Label gameOver, scoreLabel;
 
     public GameOverScreen(Neonpolis game) {
         this.game = game;
+
+        score = 0;
 
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -56,7 +60,12 @@ public class GameOverScreen implements Screen {
         gameOver = new Label(("GAME OVER!"), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         gameOver.setFontScale(4);
         table.add(gameOver).center();
+        table.row().pad(50);
+
+        scoreLabel = new Label(String.format("%05d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel.setFontScale(3);
         table.setSize(306,423);
+        table.add(scoreLabel).center();
 
         table.setFillParent(true);
         stage.addActor(table);
@@ -81,8 +90,6 @@ public class GameOverScreen implements Screen {
         if(Gdx.input.justTouched())
             game.setScreen(new MenuScreen(game));
     }
-
-
 
     @Override
     public void resize(int width, int height) {
