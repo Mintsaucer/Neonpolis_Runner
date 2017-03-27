@@ -13,7 +13,7 @@ import com.neonpolis.game.Screens.MenuScreen;
 public class Runner extends GameActor {
 
     Neonpolis game;
-    private boolean jumping;
+    public boolean jumping;
     private boolean dodging;
     private boolean hit;
     private boolean walkingLeft, walkingRight;
@@ -65,7 +65,7 @@ public class Runner extends GameActor {
     public void stopDodge() {
         dodging = false;
         if (!hit) {
-            body.setTransform(getUserData().getRunningPosition(), 0f);
+            body.setTransform(body.getPosition(), 0f);
         }
     }
 

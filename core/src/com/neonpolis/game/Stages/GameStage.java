@@ -147,7 +147,6 @@ public class GameStage extends Stage implements ContactListener {
         if (rightSideTouched(touchPoint.x, touchPoint.y)) {
             runner.moveRight();
         } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
-            //runner.dodge();
             runner.moveLeft();
         }
         return super.touchDown(x, y, pointer, button);
@@ -193,10 +192,13 @@ public class GameStage extends Stage implements ContactListener {
         Vector2 newTouch = new Vector2(x,y);
         // delta will now hold the difference between the last and the current touch positions
         Vector2 delta = newTouch.cpy().sub(lastTouch);
-        if (delta.y < 0) {
+        if (delta.y < 0 && runner.jumping == false) {
             runner.jump();
-            lastTouch = newTouch;
         }
+        if (delta.y > 0) {
+            runner.dodge();
+        }
+        lastTouch = newTouch;
         return super.touchDragged(x,y,pointer);
     }
 
