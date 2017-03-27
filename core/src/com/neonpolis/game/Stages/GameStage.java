@@ -21,6 +21,9 @@ import com.badlogic.gdx.utils.Array;
 import com.neonpolis.game.Actors.Enemy;
 import com.neonpolis.game.Actors.Ground;
 import com.neonpolis.game.Actors.Runner;
+import com.neonpolis.game.Neonpolis;
+import com.neonpolis.game.Screens.GameOverScreen;
+import com.neonpolis.game.Screens.MenuScreen;
 import com.neonpolis.game.Utils.BodyUtils;
 import com.neonpolis.game.Utils.WorldUtils;
 
@@ -29,6 +32,8 @@ import com.neonpolis.game.Utils.WorldUtils;
  */
 
 public class GameStage extends Stage implements ContactListener {
+
+    Neonpolis game;
 
     //This will be our viewport measurements while working with the debug renderer
     private static final int VIEWPORT_WIDTH = 20;
@@ -48,7 +53,8 @@ public class GameStage extends Stage implements ContactListener {
     private Rectangle screenLeftSide;
     private Vector3 touchPoint;
 
-    public GameStage() {
+    public GameStage(Neonpolis game) {
+        this.game = game;
         setUpWorld();
         setupCamera();
         setupTouchControlAreas();
@@ -113,6 +119,10 @@ public class GameStage extends Stage implements ContactListener {
                 createEnemy();
             }
             world.destroyBody(body);
+
+            if (runner.isHit()) {
+                game.setScreen( new GameOverScreen(game));
+            }
         }
     }
 

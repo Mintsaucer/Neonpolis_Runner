@@ -15,11 +15,11 @@ import com.neonpolis.game.Stages.GameStage;
 public class PlayScreen implements Screen {
 
     private GameStage stage;
-    private Neonpolis game;
+    public Neonpolis game;
     private Hud hud;
 
     public PlayScreen(Neonpolis game){
-        stage = new GameStage();
+        stage = new GameStage(game);
         this.game = game;
         hud = new Hud(game.batch);
 

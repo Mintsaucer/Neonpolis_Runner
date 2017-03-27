@@ -106,7 +106,6 @@ public class MenuScreen implements Screen {
         //table.setFillParent(true);
 
         stage.addActor(table); //Add the button to the stage
-        Gdx.input.setInputProcessor(stage);
 
         // menu button listeners
         button.addListener( new ClickListener() {

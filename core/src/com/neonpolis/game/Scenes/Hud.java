@@ -54,8 +54,6 @@ public class Hud {
         gold = 0;
         diamonds = 0;
 
-
-
         hudViewport = new ScreenViewport();
         stage = new Stage(hudViewport, sb);
 
