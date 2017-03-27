@@ -74,34 +74,34 @@ public class MenuScreen implements Screen {
         backgroundTexture = new Texture("background.png");
 
         playTexture = new Texture("newgame.png");
-        loadTexture = new Texture("loadgame.png");
-        settingTexture = new Texture("setting.png");
-        soundSettingTexture = new Texture("soundsetting.png");
+        //loadTexture = new Texture("loadgame.png");
+        //settingTexture = new Texture("setting.png");
+        //soundSettingTexture = new Texture("soundsetting.png");
 
         myTextureRegion = new TextureRegion(playTexture);
         myTexRegionDrawablePlay = new TextureRegionDrawable(myTextureRegion);
 
-        myTextureRegion = new TextureRegion(loadTexture);
-        myTexRegionDrawableLoad = new TextureRegionDrawable(myTextureRegion);
+        //myTextureRegion = new TextureRegion(loadTexture);
+        //myTexRegionDrawableLoad = new TextureRegionDrawable(myTextureRegion);
 
-        myTextureRegion = new TextureRegion(settingTexture);
-        myTexRegionDrawableSetting = new TextureRegionDrawable(myTextureRegion);
+        //myTextureRegion = new TextureRegion(settingTexture);
+        //myTexRegionDrawableSetting = new TextureRegionDrawable(myTextureRegion);
 
-        myTextureRegion = new TextureRegion(soundSettingTexture);
-        myTexRegionDrawableSoundSetting = new TextureRegionDrawable(myTextureRegion);
+        //myTextureRegion = new TextureRegion(soundSettingTexture);
+        //myTexRegionDrawableSoundSetting = new TextureRegionDrawable(myTextureRegion);
 
         button = new ImageButton(myTexRegionDrawablePlay);
-        button2 = new ImageButton(myTexRegionDrawableLoad);
-        button3 = new ImageButton(myTexRegionDrawableSetting);
-        button4 = new ImageButton(myTexRegionDrawableSoundSetting);
+        //button2 = new ImageButton(myTexRegionDrawableLoad);
+        //button3 = new ImageButton(myTexRegionDrawableSetting);
+        //button4 = new ImageButton(myTexRegionDrawableSoundSetting);
 
         table = new Table();
-        table.add(button).pad(30);
-        table.add(button2);
-        table.row().pad(30);
-        table.add(button3);
-        table.add(button4);
+        table.add(button).center();
+        //table.row().pad(30);
+        //table.add(button3);
+        //table.add(button4);
         table.setSize(1000,1000);
+        table.setFillParent(true);
 
         stage.addActor(table); //Add the button to the stage
 

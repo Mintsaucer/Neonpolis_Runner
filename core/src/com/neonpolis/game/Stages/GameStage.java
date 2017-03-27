@@ -2,11 +2,6 @@ package com.neonpolis.game.Stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g3d.particles.values.RectangleSpawnShapeValue;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -37,8 +32,8 @@ public class GameStage extends Stage implements ContactListener {
     Neonpolis game;
 
     //This will be our viewport measurements while working with the debug renderer
-    private static final int VIEWPORT_WIDTH = 20;
-    private static final int VIEWPORT_HEIGHT = 14;
+    private static final int VIEWPORT_WIDTH = 25;
+    private static final int VIEWPORT_HEIGHT = 15;
 
     private World world;
     private Ground ground;
@@ -53,7 +48,7 @@ public class GameStage extends Stage implements ContactListener {
     private Rectangle screenRightSide;
     private Rectangle screenLeftSide;
     private Vector3 touchPoint;
-
+    private Vector2 lastTouch = new Vector2();
 
     public GameStage(Neonpolis game) {
         this.game = game;
@@ -120,6 +115,9 @@ public class GameStage extends Stage implements ContactListener {
             if (BodyUtils.bodyIsEnemy(body) && !runner.isHit()) {
                 createEnemy();
             }
+            if (BodyUtils.bodyIsRunner(body)) {
+                game.setScreen( new GameOverScreen(game));
+            }
             world.destroyBody(body);
 
             if (runner.isHit()) {
@@ -142,17 +140,16 @@ public class GameStage extends Stage implements ContactListener {
 
     @Override
     public boolean touchDown(int x, int y, int pointer, int button) {
+        lastTouch.set(x, y);
         // Need to get the actual coordinates
         translateScreenToWorldCoordinates(x, y);
 
         if (rightSideTouched(touchPoint.x, touchPoint.y)) {
-            runner.jump();
             runner.moveRight();
         } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
             //runner.dodge();
             runner.moveLeft();
         }
-
         return super.touchDown(x, y, pointer, button);
     }
 
@@ -191,6 +188,17 @@ public class GameStage extends Stage implements ContactListener {
             runner.landed();
         }
     }
+    @Override
+    public boolean touchDragged(int x, int y, int pointer)  {
+        Vector2 newTouch = new Vector2(x,y);
+        // delta will now hold the difference between the last and the current touch positions
+        Vector2 delta = newTouch.cpy().sub(lastTouch);
+        if (delta.y < 0) {
+            runner.jump();
+            lastTouch = newTouch;
+        }
+        return super.touchDragged(x,y,pointer);
+    }
 
     @Override
     public void endContact(Contact contact) {
@@ -207,5 +215,6 @@ public class GameStage extends Stage implements ContactListener {
 
     }
 }
+
 
 

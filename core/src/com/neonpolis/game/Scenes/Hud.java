@@ -2,26 +2,19 @@ package com.neonpolis.game.Scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.DistanceFieldFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g3d.particles.values.PrimitiveSpawnShapeValue;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.neonpolis.game.Neonpolis;
+
 
 import javax.swing.plaf.nimbus.State;
 import javax.swing.text.html.ImageView;
@@ -42,6 +35,7 @@ public class Hud {
 
     private static Texture hudUIPicture;
 
+
     //Integers for gold and diamonds
     private Integer gold;
     private Integer diamonds;
@@ -50,7 +44,7 @@ public class Hud {
     Label diamondLabel;
     Label characterLabel;
 
-    public Hud(SpriteBatch sb){
+    public Hud(SpriteBatch sb) {
         gold = 0;
         diamonds = 0;
 
@@ -65,8 +59,9 @@ public class Hud {
         //Table for HUDs graphic UI
         table = new Table();
         table.add(pauseBtn).padTop(10);
-        table.setPosition(1,637);
-        table.setSize(656,423);
+        table.setPosition(1, 637);
+        table.setSize(656, 423);
+
 
         //Wrapper and setting position for text objects (health bar text, name, scores, diamonds)
         goldLabel = new Label(String.format("%04d", gold), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -75,7 +70,7 @@ public class Hud {
         goldWrapper.setOrigin(goldWrapper.getPrefWidth() / 2, goldWrapper.getPrefHeight() / 2);
         goldWrapper.setRotation(0);
         goldWrapper.setScale(4f);
-        goldWrapper.setPosition(470,860);
+        goldWrapper.setPosition(470, 860);
 
         diamondLabel = new Label(String.format("%04d", diamonds), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Container diamWrapper = new Container(diamondLabel);
@@ -83,7 +78,7 @@ public class Hud {
         diamWrapper.setOrigin(diamWrapper.getPrefWidth() / 2, diamWrapper.getPrefHeight() / 2);
         diamWrapper.setRotation(0);
         diamWrapper.setScale(4f);
-        diamWrapper.setPosition(497,775);
+        diamWrapper.setPosition(497, 775);
 
         characterLabel = new Label("Vivica", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Container charWrapper = new Container(characterLabel);
@@ -91,7 +86,7 @@ public class Hud {
         charWrapper.setOrigin(charWrapper.getPrefWidth() / 2, charWrapper.getPrefHeight() / 2);
         charWrapper.setRotation(0);
         charWrapper.setScale(3f);
-        charWrapper.setPosition(340,1068);
+        charWrapper.setPosition(340, 1068);
 
         stage.addActor(table);
         stage.addActor(goldWrapper);
