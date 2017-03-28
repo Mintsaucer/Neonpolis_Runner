@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.neonpolis.game.Actors.Runner;
 import com.neonpolis.game.Neonpolis;
 import com.neonpolis.game.Scenes.Hud;
 import com.neonpolis.game.Stages.GameStage;

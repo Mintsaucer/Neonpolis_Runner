@@ -32,8 +32,8 @@ public class GameStage extends Stage implements ContactListener {
     Neonpolis game;
 
     //This will be our viewport measurements while working with the debug renderer
-    private static final int VIEWPORT_WIDTH = 25;
-    private static final int VIEWPORT_HEIGHT = 15;
+    private static final int VIEWPORT_WIDTH = 35;
+    private static final int VIEWPORT_HEIGHT = 16;
 
     private World world;
     private Ground ground;
@@ -143,12 +143,11 @@ public class GameStage extends Stage implements ContactListener {
         lastTouch.set(x, y);
         // Need to get the actual coordinates
         translateScreenToWorldCoordinates(x, y);
-
-        if (rightSideTouched(touchPoint.x, touchPoint.y)) {
-            runner.moveRight();
+            if (rightSideTouched(touchPoint.x, touchPoint.y)) {
+                  runner.moveRight();
         } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
-            runner.moveLeft();
-        }
+                runner.moveLeft();
+            }
         return super.touchDown(x, y, pointer, button);
     }
 
@@ -192,10 +191,10 @@ public class GameStage extends Stage implements ContactListener {
         Vector2 newTouch = new Vector2(x,y);
         // delta will now hold the difference between the last and the current touch positions
         Vector2 delta = newTouch.cpy().sub(lastTouch);
-        if (delta.y < 0 && runner.jumping == false) {
+        if (delta.y < 0 && !runner.jumping) {
             runner.jump();
         }
-        if (delta.y > 0) {
+        if (delta.y > 0 && !runner.jumping) {
             runner.dodge();
         }
         lastTouch = newTouch;

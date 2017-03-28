@@ -17,12 +17,12 @@ public class Constants {
     // World specs
     public static final float GROUND_X = 0;
     public static final float GROUND_Y = 0;
-    public static final float GROUND_WIDTH = 60f;
+    public static final float GROUND_WIDTH = 100f;
     public static final float GROUND_HEIGHT = 2f;
     public static final float GROUND_DENSITY = 0f;
 
     // Runner specs
-    public static final float RUNNER_X = 2f;
+    public static final float RUNNER_X = 3f;
     public static final float RUNNER_Y = GROUND_Y + GROUND_HEIGHT;
     public static final float RUNNER_WIDTH = 1f;
     public static final float RUNNER_HEIGHT = 2f;
@@ -32,12 +32,12 @@ public class Constants {
     public static final float RUNNER_DODGE_X = 2f;
     public static final float RUNNER_DODGE_Y = 1.5f;
     public static final Vector2 RUNNER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 16f);
-    public static final Vector2 RUNNER_WALKING_LEFT_LINEAR_IMPULSE = new Vector2(-4, 0f);
-    public static final Vector2 RUNNER_WALKING_RIGHT_LINEAR_IMPULSE = new Vector2(4, 0f);
+    public static final Vector2 RUNNER_WALKING_LEFT_LINEAR_IMPULSE = new Vector2(-5, 0f);
+    public static final Vector2 RUNNER_WALKING_RIGHT_LINEAR_IMPULSE = new Vector2(5, 0f);
     public static final float RUNNER_HIT_ANGULAR_IMPULSE = 10f;
 
     // "enemy" specs
-    public static final float ENEMY_X = 25f;
+    public static final float ENEMY_X = 40f;
     public static final float ENEMY_DENSITY = RUNNER_DENSITY;
     public static final float RUNNING_SHORT_ENEMY_Y = 1.5f;
     public static final float RUNNING_LONG_ENEMY_Y = 2f;

@@ -73,7 +73,7 @@ public class MenuScreen implements Screen {
 
         backgroundTexture = new Texture("background.png");
 
-        playTexture = new Texture("newgame.png");
+        playTexture = new Texture("playgame.png");
         //loadTexture = new Texture("loadgame.png");
         //settingTexture = new Texture("setting.png");
         //soundSettingTexture = new Texture("soundsetting.png");
@@ -97,12 +97,12 @@ public class MenuScreen implements Screen {
 
         table = new Table();
         table.add(button).center();
+        //table.add(button2);
         //table.row().pad(30);
         //table.add(button3);
         //table.add(button4);
-        table.setSize(1000,1000);
+        table.setSize(1100,1000);
         table.setFillParent(true);
-
         stage.addActor(table); //Add the button to the stage
 
         // menu button listeners
