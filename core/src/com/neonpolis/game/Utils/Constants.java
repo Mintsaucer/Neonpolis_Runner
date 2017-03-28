@@ -22,7 +22,7 @@ public class Constants {
     public static final float GROUND_DENSITY = 0f;
 
     // Runner specs
-    public static final float RUNNER_X = 3f;
+    public static final float RUNNER_X = 10f;
     public static final float RUNNER_Y = GROUND_Y + GROUND_HEIGHT;
     public static final float RUNNER_WIDTH = 1f;
     public static final float RUNNER_HEIGHT = 2f;

@@ -11,7 +11,7 @@ import com.neonpolis.game.Box2D.UserData;
 
 public abstract class GameActor extends Actor {
 
-    protected Body body;
+    public Body body;
     protected UserData userData;
 
     public GameActor(Body body) {

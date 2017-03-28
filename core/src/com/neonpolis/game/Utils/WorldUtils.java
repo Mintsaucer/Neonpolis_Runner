@@ -1,10 +1,15 @@
 package com.neonpolis.game.Utils;
 
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.neonpolis.game.Box2D.EnemyUserData;
@@ -18,11 +23,30 @@ import com.neonpolis.game.Enums.EnemyType;
 
 public class WorldUtils {
 
-    public static World createWorld() {
-        return new World(Constants.WORLD_GRAVITY, true);
+    BodyDef bdef = new BodyDef();
+    PolygonShape shape = new PolygonShape();
+    FixtureDef fdef = new FixtureDef();
+    Body body;
+
+    public WorldUtils(World world, TiledMap map) {
+/*
+        // CREATE GROUND BODIES/FIXTURES
+        for (MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2), (rect.getY() + rect.getHeight() / 2));
+
+            body = world.createBody(bdef);
+            body.setUserData(new GroundUserData());
+
+            shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
+            fdef.shape = shape;
+            body.createFixture(fdef);
+        }*/
     }
 
-    // Create ground of the world
+     //Create ground of the world
     public static Body createGround(World world) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(new Vector2(Constants.GROUND_X, Constants.GROUND_Y));

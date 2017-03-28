@@ -2,6 +2,7 @@ package com.neonpolis.game.Stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -33,7 +34,7 @@ public class GameStage extends Stage implements ContactListener {
 
     //This will be our viewport measurements while working with the debug renderer
     private static final int VIEWPORT_WIDTH = 35;
-    private static final int VIEWPORT_HEIGHT = 16;
+    private static final int VIEWPORT_HEIGHT = 15;
 
     private World world;
     private Ground ground;
@@ -42,13 +43,15 @@ public class GameStage extends Stage implements ContactListener {
     private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
 
-    private OrthographicCamera camera;
-    private Box2DDebugRenderer renderer;
+    public OrthographicCamera camera;
+    public Box2DDebugRenderer renderer;
 
     private Rectangle screenRightSide;
     private Rectangle screenLeftSide;
     private Vector3 touchPoint;
     private Vector2 lastTouch = new Vector2();
+
+    TiledMap map;
 
     public GameStage(Neonpolis game) {
         this.game = game;
@@ -59,7 +62,7 @@ public class GameStage extends Stage implements ContactListener {
     }
 
     private void setUpWorld() {
-        world = WorldUtils.createWorld();
+        world = new World(new Vector2(0,-10), true);
         world.setContactListener(this);
         setUpGround();
         setUpRunner();
