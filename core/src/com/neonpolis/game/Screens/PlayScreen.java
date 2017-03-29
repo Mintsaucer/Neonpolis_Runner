@@ -53,6 +53,8 @@ public class PlayScreen implements Screen, InputProcessor {
     private World world;
     private Box2DDebugRenderer b2dr;
 
+    private Vector2 lastTouch = new Vector2();
+
     public PlayScreen(Neonpolis game){
         //stage = new GameStage(game);
         this.game = game;
@@ -60,14 +62,16 @@ public class PlayScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(this);
 
         gamecam = new OrthographicCamera();
-        gamePort = new FitViewport(500,300, gamecam);
-        gamecam.setToOrtho(false);
+        gamePort = new FitViewport(100,50, gamecam);
+        gamecam.setToOrtho(false,220,100);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("map1.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 5);
+        renderer = new OrthogonalTiledMapRenderer(map, 1);
 
-        world = new World(new Vector2(0,-20), true);
+        //gamecam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
+
+        world = new World(new Vector2(0,-60), true);
         b2dr = new Box2DDebugRenderer();
 
         new B2WorldCreator(world,map);
@@ -113,28 +117,31 @@ public class PlayScreen implements Screen, InputProcessor {
         int posX = Gdx.input.getX();
         int posY = Gdx.input.getY();
 
-        if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500 )
-            player.b2body.applyLinearImpulse(new Vector2(30, 0), player.b2body.getWorldCenter(), true);
+        if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500 && player.b2body.getLinearVelocity().y < 6 )
+            player.b2body.applyLinearImpulse(new Vector2(2, 0), player.b2body.getWorldCenter(), true);
 
-        if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500 )
-            player.b2body.applyLinearImpulse(new Vector2(-30, 0), player.b2body.getWorldCenter(), true);
-
+        if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500 && player.b2body.getLinearVelocity().y < 6 )
+            player.b2body.applyLinearImpulse(new Vector2(-2, 0), player.b2body.getWorldCenter(), true);
+/*
         if (Gdx.input.isTouched() && posY < 1080 / 2)
-            player.b2body.applyLinearImpulse(new Vector2(0, 40), player.b2body.getWorldCenter(), true);
+           player.b2body.applyLinearImpulse(new Vector2(0, 10), player.b2body.getWorldCenter(), true);
+   */
     }
 
     public void update (float dt) {
         //handle user input first
         handleInput(dt);
-        gamecam.update();
-        renderer.setView(gamecam);
+
+
         world.step(1/60f, 6, 2);
-        //player.update(dt);
+        player.update(dt);
 
         // attach gamecam to player coordinates
-        if(player.b2body.getPosition().x >= 1920/2)
+        if(player.b2body.getPosition().x >= 220/2)
         gamecam.position.x = player.b2body.getPosition().x;
         // update gamecam with correct coordinates
+        gamecam.update();
+        renderer.setView(gamecam);
     }
 
     @Override
@@ -178,9 +185,9 @@ public class PlayScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        lastTouch.set(screenX, screenY);
         return false;
     }
-
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         return false;
@@ -188,7 +195,15 @@ public class PlayScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
+        Vector2 newTouch = new Vector2(screenX, screenY);
+        // delta will now hold the difference between the last and the current touch positions
+        Vector2 delta = newTouch.cpy().sub(lastTouch);
+        if (delta.y < 0) {
+                player.b2body.applyLinearImpulse(new Vector2(0, 15), player.b2body.getWorldCenter(), true);
+        }
+        lastTouch = newTouch;
+
+        return true;
     }
 
     @Override

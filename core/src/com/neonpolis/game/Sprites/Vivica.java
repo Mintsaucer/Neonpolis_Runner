@@ -40,7 +40,7 @@ public class Vivica extends Sprite {
     }
 
     public void update(float dt){
-        //setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         //setRegion(getFrame(dt));
     }
 
@@ -49,10 +49,11 @@ public class Vivica extends Sprite {
         bdef.position.set(30, 30);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
+        b2body.setGravityScale(5);
 
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(30);
+        shape.setRadius(7);
 
         fdef.shape = shape;
         b2body.createFixture(fdef);

@@ -29,7 +29,7 @@ public class Neonpolis extends Game {
 		// manager.finishLoading();
 
 		// Splash screen starts first
-		setScreen(new PlayScreen(this));
+		setScreen(new SplashScreen(this));
 	}
 
 	@Override
