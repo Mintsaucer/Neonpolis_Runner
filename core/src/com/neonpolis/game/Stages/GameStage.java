@@ -43,8 +43,8 @@ public class GameStage extends Stage implements ContactListener {
     private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
 
-    public OrthographicCamera camera;
-    public Box2DDebugRenderer renderer;
+    private OrthographicCamera camera;
+    private Box2DDebugRenderer renderer;
 
     private Rectangle screenRightSide;
     private Rectangle screenLeftSide;

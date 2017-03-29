@@ -29,21 +29,7 @@ public class WorldUtils {
     Body body;
 
     public WorldUtils(World world, TiledMap map) {
-/*
-        // CREATE GROUND BODIES/FIXTURES
-        for (MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX() + rect.getWidth() / 2), (rect.getY() + rect.getHeight() / 2));
-
-            body = world.createBody(bdef);
-            body.setUserData(new GroundUserData());
-
-            shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }*/
     }
 
      //Create ground of the world

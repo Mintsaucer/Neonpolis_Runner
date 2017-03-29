@@ -2,6 +2,7 @@ package com.neonpolis.game.Scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,8 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.neonpolis.game.Screens.PlayScreen;
 
 
 import javax.swing.plaf.nimbus.State;
@@ -24,17 +29,17 @@ import javax.xml.soap.Text;
  * Created by nikom on 23.3.2017.
  */
 
-public class Hud {
+public class Hud implements Disposable{
     public Stage stage;
-    private Viewport hudViewport;
+    public Viewport hudViewport;
     private TextureRegion myTextureRegion;
     private TextureRegionDrawable hudUI;
     private ImageButton pauseBtn;
-
     private Table table;
 
-    private static Texture hudUIPicture;
+    public OrthographicCamera hudCam;
 
+    private static Texture hudUIPicture;
 
     //Integers for gold and diamonds
     private Integer gold;
@@ -47,8 +52,8 @@ public class Hud {
     public Hud(SpriteBatch sb) {
         gold = 0;
         diamonds = 0;
-
-        hudViewport = new ScreenViewport();
+        hudCam = new OrthographicCamera();
+        hudViewport = new FitViewport(1920,1080, hudCam);
         stage = new Stage(hudViewport, sb);
 
         hudUIPicture = new Texture("HuD.png");
@@ -92,5 +97,10 @@ public class Hud {
         stage.addActor(goldWrapper);
         stage.addActor(diamWrapper);
         stage.addActor(charWrapper);
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
     }
 }

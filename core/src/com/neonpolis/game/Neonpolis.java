@@ -4,6 +4,7 @@ package com.neonpolis.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.neonpolis.game.Screens.PlayScreen;
 import com.neonpolis.game.Screens.SplashScreen;
 
 public class Neonpolis extends Game {
@@ -28,7 +29,7 @@ public class Neonpolis extends Game {
 		// manager.finishLoading();
 
 		// Splash screen starts first
-		setScreen(new SplashScreen(this));
+		setScreen(new PlayScreen(this));
 	}
 
 	@Override
