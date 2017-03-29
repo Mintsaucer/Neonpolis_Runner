@@ -3,10 +3,12 @@ package com.neonpolis.game.Sprites;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.neonpolis.game.Screens.PlayScreen;
 import com.neonpolis.game.Utils.Constants;
@@ -49,13 +51,14 @@ public class Vivica extends Sprite {
         bdef.position.set(30, 30);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
-        b2body.setGravityScale(5);
+        b2body.setGravityScale(6);
 
         FixtureDef fdef = new FixtureDef();
-        CircleShape shape = new CircleShape();
-        shape.setRadius(7);
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(5,9);
 
         fdef.shape = shape;
+        fdef.friction = 0.4f;
         b2body.createFixture(fdef);
     }
 

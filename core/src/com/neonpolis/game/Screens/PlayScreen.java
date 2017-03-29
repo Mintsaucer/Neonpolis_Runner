@@ -1,14 +1,12 @@
 package com.neonpolis.game.Screens;
 
-import com.badlogic.gdx.Game;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -17,17 +15,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.neonpolis.game.Actors.Runner;
 import com.neonpolis.game.Neonpolis;
 import com.neonpolis.game.Scenes.Hud;
 import com.neonpolis.game.Sprites.Vivica;
-import com.neonpolis.game.Stages.GameStage;
 import com.neonpolis.game.Utils.B2WorldCreator;
-import com.neonpolis.game.Utils.WorldUtils;
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap;
+
 
 
 /**
@@ -117,12 +110,13 @@ public class PlayScreen implements Screen, InputProcessor {
         int posX = Gdx.input.getX();
         int posY = Gdx.input.getY();
 
-        if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500 && player.b2body.getLinearVelocity().y < 6 )
-            player.b2body.applyLinearImpulse(new Vector2(2, 0), player.b2body.getWorldCenter(), true);
-
-        if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500 && player.b2body.getLinearVelocity().y < 6 )
-            player.b2body.applyLinearImpulse(new Vector2(-2, 0), player.b2body.getWorldCenter(), true);
-/*
+        // move left
+        if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500  )
+            player.b2body.applyLinearImpulse(new Vector2(4, 0), player.b2body.getWorldCenter(), true);
+        // move right
+        if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500  )
+            player.b2body.applyLinearImpulse(new Vector2(-4, 0), player.b2body.getWorldCenter(), true);
+/*      // jump
         if (Gdx.input.isTouched() && posY < 1080 / 2)
            player.b2body.applyLinearImpulse(new Vector2(0, 10), player.b2body.getWorldCenter(), true);
    */
@@ -131,7 +125,6 @@ public class PlayScreen implements Screen, InputProcessor {
     public void update (float dt) {
         //handle user input first
         handleInput(dt);
-
 
         world.step(1/60f, 6, 2);
         player.update(dt);
@@ -199,7 +192,7 @@ public class PlayScreen implements Screen, InputProcessor {
         // delta will now hold the difference between the last and the current touch positions
         Vector2 delta = newTouch.cpy().sub(lastTouch);
         if (delta.y < 0) {
-                player.b2body.applyLinearImpulse(new Vector2(0, 15), player.b2body.getWorldCenter(), true);
+                player.b2body.applyLinearImpulse(new Vector2(0, 30), player.b2body.getWorldCenter(), true);
         }
         lastTouch = newTouch;
 

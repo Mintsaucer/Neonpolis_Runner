@@ -1,8 +1,10 @@
 package com.neonpolis.game.Utils;
 
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -34,6 +36,20 @@ public class B2WorldCreator {
             shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
             fdef.shape = shape;
             body.createFixture(fdef);
+        }
+
+        // CREATE COIN BODIES/FIXTURES
+        for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.KinematicBody;
+
+            bdef.position.set((rect.getX() + rect.getWidth() / 2), (rect.getY() + rect.getHeight() / 2));
+            body = world.createBody(bdef);
+
+            //shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
+            //fdef.shape = shape;
+            //body.createFixture(fdef);
         }
     }
 }
