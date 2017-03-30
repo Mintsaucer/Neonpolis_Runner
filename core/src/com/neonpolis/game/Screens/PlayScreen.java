@@ -55,7 +55,7 @@ public class PlayScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(this);
 
         gamecam = new OrthographicCamera();
-        gamePort = new FitViewport(100,50, gamecam);
+        //gamePort = new FitViewport(100,50, gamecam);
         gamecam.setToOrtho(false,220,100);
 
         mapLoader = new TmxMapLoader();
@@ -91,6 +91,7 @@ public class PlayScreen implements Screen, InputProcessor {
         renderer.render();
         game.batch.setProjectionMatrix(gamecam.combined);
 
+        // render Box2DDebug lines
         b2dr.render(world, gamecam.combined);
 
         game.batch.setProjectionMatrix(gamecam.combined);
@@ -104,6 +105,11 @@ public class PlayScreen implements Screen, InputProcessor {
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+
+        // Player is dead if drop below ground
+        if (player.b2body.getPosition().y +4 <= 0) {
+            game.setScreen(new GameOverScreen(game));
+        }
     }
 
     public void handleInput(float dt) {
@@ -116,10 +122,10 @@ public class PlayScreen implements Screen, InputProcessor {
         // move right
         if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500  )
             player.b2body.applyLinearImpulse(new Vector2(-4, 0), player.b2body.getWorldCenter(), true);
-/*      // jump
+       // jump
         if (Gdx.input.isTouched() && posY < 1080 / 2)
            player.b2body.applyLinearImpulse(new Vector2(0, 10), player.b2body.getWorldCenter(), true);
-   */
+
     }
 
     public void update (float dt) {
@@ -192,7 +198,7 @@ public class PlayScreen implements Screen, InputProcessor {
         // delta will now hold the difference between the last and the current touch positions
         Vector2 delta = newTouch.cpy().sub(lastTouch);
         if (delta.y < 0) {
-                player.b2body.applyLinearImpulse(new Vector2(0, 30), player.b2body.getWorldCenter(), true);
+                player.b2body.applyLinearImpulse(new Vector2(0, 40), player.b2body.getWorldCenter(), true);
         }
         lastTouch = newTouch;
 

@@ -33,6 +33,7 @@ public class Vivica extends Sprite {
     public Vivica(World world, PlayScreen screen) {
         this.world = world;
 
+        // Create player body type, size, etc...
         defineVivica();
 
         currentState = State.STANDING;

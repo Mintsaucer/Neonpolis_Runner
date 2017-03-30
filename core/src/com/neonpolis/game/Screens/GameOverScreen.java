@@ -62,7 +62,7 @@ public class GameOverScreen implements Screen {
         table.add(gameOver).center();
         table.row().pad(50);
 
-        scoreLabel = new Label(String.format("%05d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel = new Label(String.format("%04d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         scoreLabel.setFontScale(3);
         table.setSize(306,423);
         table.add(scoreLabel).center();
