@@ -59,7 +59,7 @@ public class PlayScreen implements Screen, InputProcessor {
         gamecam.setToOrtho(false,220,100);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("map1.tmx");
+        map = mapLoader.load("level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1);
 
         //gamecam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
@@ -105,6 +105,8 @@ public class PlayScreen implements Screen, InputProcessor {
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+
+        //player.b2body.setLinearVelocity(30, 0);
 
         // Player is dead if drop below ground
         if (player.b2body.getPosition().y +4 <= 0) {
