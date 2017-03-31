@@ -4,9 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -18,17 +20,22 @@ import com.neonpolis.game.Utils.Constants;
  */
 
 public class Vivica extends Sprite {
+
     public enum State {FALLING, JUMPING, STANDING, RUNNING};
 
     public State currentState;
     public State previousState;
     public World world;
     public Body b2body;
+    public PolygonShape shape;
     private TextureRegion stand;
     private Animation run;
     private Animation jump;
     private float stateTimer;
     private boolean runningRight;
+
+    public boolean jumping;
+    public boolean dodging;
 
     public Vivica(World world, PlayScreen screen) {
         this.world = world;
@@ -47,20 +54,31 @@ public class Vivica extends Sprite {
         //setRegion(getFrame(dt));
     }
 
+    public void landed() {
+        jumping = false;
+    }
+
+    public void jump() {
+        if (!(jumping && dodging)) {
+            b2body.applyLinearImpulse(new Vector2(0, 180), b2body.getWorldCenter(), true);
+            jumping = true;
+        }
+    }
+
     public void defineVivica() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(30, 30);
+        bdef.position.set(30, 25);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
-        b2body.setGravityScale(6);
+        b2body.setGravityScale(5);
 
         FixtureDef fdef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(5,9);
+        shape = new PolygonShape();
+        shape.setAsBox(5,8);
 
         fdef.shape = shape;
-        fdef.friction = 0.4f;
-        b2body.createFixture(fdef);
+        fdef.friction = 0.5f;
+        b2body.createFixture(fdef).setUserData("vivica");
     }
 
     public State getState() {
@@ -72,5 +90,17 @@ public class Vivica extends Sprite {
             return State.RUNNING;
         else
             return State.STANDING;
+    }
+
+    public void dodge() {
+        if (!(jumping && dodging)) {
+            b2body.setTransform(b2body.getPosition(), (float) (-90f * (Math.PI / 180f)));
+            dodging = true;
+        }
+    }
+
+    public void stopDodge() {
+        dodging = false;
+            b2body.setTransform(b2body.getPosition(), 0f);
     }
 }

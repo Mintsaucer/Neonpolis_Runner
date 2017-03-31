@@ -12,23 +12,31 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.kotcrab.vis.runtime.spriter.Timeline;
 import com.neonpolis.game.Neonpolis;
 import com.neonpolis.game.Scenes.Hud;
 import com.neonpolis.game.Sprites.Vivica;
 import com.neonpolis.game.Utils.B2WorldCreator;
-
+import com.neonpolis.game.Utils.BodyUtils;
 
 
 /**
  * Created by nikom on 20.3.2017.
  */
 
-public class PlayScreen implements Screen, InputProcessor {
+public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
+    private final B2WorldCreator worldcreator;
     //private GameStage stage;
     private Neonpolis game;
     private Hud hud;
@@ -37,7 +45,6 @@ public class PlayScreen implements Screen, InputProcessor {
     private TextureAtlas atlas;
 
     private OrthographicCamera gamecam;
-    private Viewport gamePort;
 
     private TiledMap map;
     private TmxMapLoader mapLoader;
@@ -48,26 +55,27 @@ public class PlayScreen implements Screen, InputProcessor {
 
     private Vector2 lastTouch = new Vector2();
 
-    public PlayScreen(Neonpolis game){
+    public PlayScreen(Neonpolis game) {
         //stage = new GameStage(game);
         this.game = game;
 
         Gdx.input.setInputProcessor(this);
 
         gamecam = new OrthographicCamera();
-        //gamePort = new FitViewport(100,50, gamecam);
-        gamecam.setToOrtho(false,220,100);
+        gamecam.setToOrtho(false, 220, 100);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1);
 
-        //gamecam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
+        world = new World(new Vector2(0, -50), true);
+        world.setContactListener(this);
 
-        world = new World(new Vector2(0,-60), true);
         b2dr = new Box2DDebugRenderer();
 
-        new B2WorldCreator(world,map);
+        new B2WorldCreator(world, map);
+
+        worldcreator = new B2WorldCreator(world, map);
 
         player = new Vivica(world, this);
         hud = new Hud(game.batch);
@@ -106,10 +114,8 @@ public class PlayScreen implements Screen, InputProcessor {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
-        //player.b2body.setLinearVelocity(30, 0);
-
         // Player is dead if drop below ground
-        if (player.b2body.getPosition().y +4 <= 0) {
+        if (player.b2body.getPosition().y + 4 <= 0) {
             game.setScreen(new GameOverScreen(game));
         }
     }
@@ -118,28 +124,28 @@ public class PlayScreen implements Screen, InputProcessor {
         int posX = Gdx.input.getX();
         int posY = Gdx.input.getY();
 
-        // move left
-        if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500  )
-            player.b2body.applyLinearImpulse(new Vector2(4, 0), player.b2body.getWorldCenter(), true);
         // move right
-        if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500  )
+        if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500)
+            player.b2body.applyLinearImpulse(new Vector2(4, 0), player.b2body.getWorldCenter(), true);
+        // move left
+        if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500)
             player.b2body.applyLinearImpulse(new Vector2(-4, 0), player.b2body.getWorldCenter(), true);
-       // jump
+     /*  // jump
         if (Gdx.input.isTouched() && posY < 1080 / 2)
-           player.b2body.applyLinearImpulse(new Vector2(0, 10), player.b2body.getWorldCenter(), true);
+           player.b2body.applyLinearImpulse(new Vector2(0, 10), player.b2body.getWorldCenter(), true); */
 
     }
 
-    public void update (float dt) {
+    public void update(float dt) {
         //handle user input first
         handleInput(dt);
 
-        world.step(1/60f, 6, 2);
+        world.step(1 / 60f, 6, 2);
         player.update(dt);
 
         // attach gamecam to player coordinates
-        if(player.b2body.getPosition().x >= 220/2)
-        gamecam.position.x = player.b2body.getPosition().x;
+        if (player.b2body.getPosition().x >= 220 / 2)
+            gamecam.position.x = player.b2body.getPosition().x;
         // update gamecam with correct coordinates
         gamecam.update();
         renderer.setView(gamecam);
@@ -189,9 +195,13 @@ public class PlayScreen implements Screen, InputProcessor {
         lastTouch.set(screenX, screenY);
         return false;
     }
+
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+        if (player.dodging) {
+            player.stopDodge();
+        }
+        return true;
     }
 
     @Override
@@ -199,8 +209,12 @@ public class PlayScreen implements Screen, InputProcessor {
         Vector2 newTouch = new Vector2(screenX, screenY);
         // delta will now hold the difference between the last and the current touch positions
         Vector2 delta = newTouch.cpy().sub(lastTouch);
-        if (delta.y < 0) {
-                player.b2body.applyLinearImpulse(new Vector2(0, 40), player.b2body.getWorldCenter(), true);
+
+        if (delta.y < -20 && !player.jumping && !player.dodging) {
+            player.jump();
+        }
+        else if (delta.y > 35 && !player.jumping) {
+            player.dodge();
         }
         lastTouch = newTouch;
 
@@ -216,4 +230,34 @@ public class PlayScreen implements Screen, InputProcessor {
     public boolean scrolled(int amount) {
         return false;
     }
+
+    @Override
+    public void beginContact(Contact contact) {
+        Fixture fixtureA = contact.getFixtureA();
+        Fixture fixtureB = contact.getFixtureB();
+
+        // Check if player and ground touch
+        if(fixtureA.getUserData() != null
+                || fixtureA.getUserData().equals("vivica")
+                || fixtureB.getUserData() != null
+                && fixtureB.getUserData().equals("ground")){
+            player.landed();
+        }
+    }
+
+    @Override
+    public void endContact(Contact contact) {
+
+    }
+
+    @Override
+    public void preSolve(Contact contact, Manifold oldManifold) {
+
+    }
+
+    @Override
+    public void postSolve(Contact contact, ContactImpulse impulse) {
+
+    }
 }
+
