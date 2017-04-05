@@ -68,7 +68,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         map = mapLoader.load("level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1);
 
-        world = new World(new Vector2(0, -50), true);
+        world = new World(new Vector2(0, -40), true);
         world.setContactListener(this);
 
         b2dr = new Box2DDebugRenderer();
@@ -119,6 +119,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
     public void handleInput(float dt) {
         int posX = Gdx.input.getX();
         int posY = Gdx.input.getY();
+
         if (!player.jumping && player.b2body.getLinearVelocity().x == 0)
         player.setRegion(player.vivicaStand);
 
@@ -212,7 +213,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
             player.jump();
         }
         else if (delta.y > 35 && !player.jumping) {
-            player.dodge();
+            //player.dodge();
         }
         lastTouch = newTouch;
 
