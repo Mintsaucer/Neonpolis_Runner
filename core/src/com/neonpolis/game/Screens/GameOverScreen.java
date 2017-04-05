@@ -35,7 +35,7 @@ public class GameOverScreen implements Screen {
 
     private int score;
 
-    Label gameOver, scoreLabel;
+    Label gameOverLabel, scoreLabel;
 
     public GameOverScreen(Neonpolis game) {
         this.game = game;
@@ -57,9 +57,9 @@ public class GameOverScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         table = new Table();
-        gameOver = new Label(("GAME OVER!"), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        gameOver.setFontScale(4);
-        table.add(gameOver).center();
+        gameOverLabel = new Label(("GAME OVER!"), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        gameOverLabel.setFontScale(4);
+        table.add(gameOverLabel).center();
         table.row().pad(50);
 
         scoreLabel = new Label(String.format("%04d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));

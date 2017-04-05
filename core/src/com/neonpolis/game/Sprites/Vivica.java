@@ -1,5 +1,6 @@
 package com.neonpolis.game.Sprites;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,7 +29,8 @@ public class Vivica extends Sprite {
     public World world;
     public Body b2body;
     public PolygonShape shape;
-    private TextureRegion stand;
+    public TextureRegion vivicaStand, vivicaRun, vivicaJump;
+    public Texture texture;
     private Animation run;
     private Animation jump;
     private float stateTimer;
@@ -42,6 +44,13 @@ public class Vivica extends Sprite {
 
         // Create player body type, size, etc...
         defineVivica();
+        texture = new Texture("vivica.png");
+        vivicaStand = new TextureRegion(texture, 1, 0, 50, 166);
+        vivicaRun = new TextureRegion(texture, 50, 10, 170,156);
+        vivicaJump = new TextureRegion(texture, 220, 10, 143,146);
+
+        setBounds(0, 0 ,18, 34);
+        setRegion(vivicaStand);
 
         currentState = State.STANDING;
         previousState = State.STANDING;
@@ -74,7 +83,7 @@ public class Vivica extends Sprite {
 
         FixtureDef fdef = new FixtureDef();
         shape = new PolygonShape();
-        shape.setAsBox(5,8);
+        shape.setAsBox(9,17);
 
         fdef.shape = shape;
         fdef.friction = 0.5f;

@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -42,7 +43,6 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
     private Hud hud;
     private Music music;
     private Vivica player;
-    private TextureAtlas atlas;
 
     private OrthographicCamera gamecam;
 
@@ -62,7 +62,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         Gdx.input.setInputProcessor(this);
 
         gamecam = new OrthographicCamera();
-        gamecam.setToOrtho(false, 220, 100);
+        gamecam.setToOrtho(false, 250, 135);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("level1.tmx");
@@ -79,10 +79,6 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
         player = new Vivica(world, this);
         hud = new Hud(game.batch);
-    }
-
-    public TextureAtlas getAtlas() {
-        return atlas;
     }
 
     @Override
@@ -103,9 +99,9 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         b2dr.render(world, gamecam.combined);
 
         game.batch.setProjectionMatrix(gamecam.combined);
-        //game.batch.begin();
-        //player.draw(game.batch);
-        //game.batch.end();
+        game.batch.begin();
+        player.draw(game.batch);
+        game.batch.end();
 
         //update stage
         //stage.draw();
@@ -123,17 +119,18 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
     public void handleInput(float dt) {
         int posX = Gdx.input.getX();
         int posY = Gdx.input.getY();
+        if (!player.jumping && player.b2body.getLinearVelocity().x == 0)
+        player.setRegion(player.vivicaStand);
 
         // move right
-        if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500)
+        if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500) {
             player.b2body.applyLinearImpulse(new Vector2(4, 0), player.b2body.getWorldCenter(), true);
-        // move left
+            if (!player.jumping)
+                player.setRegion(player.vivicaRun);
+        }
+        /* move left
         if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500)
-            player.b2body.applyLinearImpulse(new Vector2(-4, 0), player.b2body.getWorldCenter(), true);
-     /*  // jump
-        if (Gdx.input.isTouched() && posY < 1080 / 2)
-           player.b2body.applyLinearImpulse(new Vector2(0, 10), player.b2body.getWorldCenter(), true); */
-
+            player.b2body.applyLinearImpulse(new Vector2(-4, 0), player.b2body.getWorldCenter(), true); */
     }
 
     public void update(float dt) {
@@ -211,6 +208,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         Vector2 delta = newTouch.cpy().sub(lastTouch);
 
         if (delta.y < -20 && !player.jumping && !player.dodging) {
+            player.setRegion(player.vivicaJump);
             player.jump();
         }
         else if (delta.y > 35 && !player.jumping) {
