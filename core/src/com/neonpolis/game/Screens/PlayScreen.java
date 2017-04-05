@@ -68,7 +68,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         map = mapLoader.load("level1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1);
 
-        world = new World(new Vector2(0, -40), true);
+        world = new World(new Vector2(0, -45), true);
         world.setContactListener(this);
 
         b2dr = new Box2DDebugRenderer();
@@ -120,14 +120,17 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         int posX = Gdx.input.getX();
         int posY = Gdx.input.getY();
 
-        if (!player.jumping && player.b2body.getLinearVelocity().x == 0)
-        player.setRegion(player.vivicaStand);
+        if (!player.jumping && player.b2body.getLinearVelocity().x == 0) {
+            player.setRegion(player.vivicaStand);
+            player.setBounds(0, 0 ,18, 41);
+        }
 
         // move right
         if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500) {
             player.b2body.applyLinearImpulse(new Vector2(4, 0), player.b2body.getWorldCenter(), true);
             if (!player.jumping)
                 player.setRegion(player.vivicaRun);
+                player.setBounds(0, 0 ,26, 41);
         }
         /* move left
         if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500)
@@ -211,6 +214,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         if (delta.y < -20 && !player.jumping && !player.dodging) {
             player.setRegion(player.vivicaJump);
             player.jump();
+            player.setBounds(0, 0 ,26, 41);
         }
         else if (delta.y > 35 && !player.jumping) {
             //player.dodge();
