@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.neonpolis.game.Neonpolis;
 import com.neonpolis.game.Screens.PlayScreen;
 import com.neonpolis.game.Utils.Constants;
 
@@ -35,7 +36,6 @@ public class Vivica extends Sprite {
     private Animation jump;
     private float stateTimer;
     private boolean runningRight;
-
     public boolean jumping;
     public boolean dodging;
 

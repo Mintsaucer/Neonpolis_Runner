@@ -3,6 +3,7 @@ package com.neonpolis.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.neonpolis.game.Screens.PlayScreen;
 import com.neonpolis.game.Screens.SplashScreen;
@@ -25,8 +26,8 @@ public class Neonpolis extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		manager = new AssetManager();
-		// manager.load(" tänne_musiikkia.ogg ", Music.class);
-		// manager.finishLoading();
+		manager.load("audio/music/mario_music.ogg", Music.class);
+		manager.finishLoading();
 
 		// Splash screen starts first
 		setScreen(new SplashScreen(this));

@@ -2,6 +2,7 @@ package com.neonpolis.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,6 +25,8 @@ public class MenuScreen implements Screen {
     private SpriteBatch batch;
     private Stage stage;
 
+    private Music music;
+
     private TextureRegion myTextureRegion;
     private TextureRegionDrawable myTexRegionDrawablePlay, myTexRegionDrawableLoad, myTexRegionDrawableSetting, myTexRegionDrawableSoundSetting;
     private ImageButton button, button2, button3, button4;
@@ -37,6 +40,10 @@ public class MenuScreen implements Screen {
         stage = new Stage();
 
         Gdx.input.setInputProcessor(stage);
+
+        music = Neonpolis.manager.get("audio/music/mario_music.ogg", Music.class);
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
