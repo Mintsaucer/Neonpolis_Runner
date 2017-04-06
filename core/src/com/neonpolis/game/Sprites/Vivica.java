@@ -51,7 +51,7 @@ public class Vivica extends Sprite {
         vivicaRun = new TextureRegion(texture, 50, 10, 170,156);
         vivicaJump = new TextureRegion(texture, 220, 10, 143,146);
 
-        setBounds(0, 0 ,18, 41);
+        setBounds(0, 0 ,17, 32);
         setRegion(vivicaStand);
 
         currentState = State.STANDING;
@@ -67,14 +67,14 @@ public class Vivica extends Sprite {
 
     public void landed() {
         setRegion(vivicaRun);
-        setBounds(0, 0 ,26, 41);
+        setBounds(0, 0 ,18, 32);
         jumping = false;
     }
 
     public void jump() {
         if (!(jumping && dodging)) {
             //b2body.applyLinearImpulse(new Vector2(b2body.getLinearVelocity().x, 270f), b2body.getWorldCenter(), true);
-            b2body.setLinearVelocity(b2body.getLinearVelocity().x, 250);
+            b2body.setLinearVelocity(b2body.getLinearVelocity().x, 400);
             jumping = true;
         }
     }
@@ -84,11 +84,11 @@ public class Vivica extends Sprite {
         bdef.position.set(30, 25);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
-        b2body.setGravityScale(5);
+        b2body.setGravityScale(5.2f);
 
         FixtureDef fdef = new FixtureDef();
         shape = new PolygonShape();
-        shape.setAsBox(9, 20);
+        shape.setAsBox(7, 15);
 
         fdef.shape = shape;
         fdef.friction = 0.5f;
