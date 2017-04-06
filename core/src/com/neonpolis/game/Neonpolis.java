@@ -26,7 +26,7 @@ public class Neonpolis extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		manager = new AssetManager();
-		manager.load("audio/music/mario_music.ogg", Music.class);
+		manager.load("audio/music/hubbub_music.ogg", Music.class);
 		manager.finishLoading();
 
 		// Splash screen starts first

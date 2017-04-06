@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -57,6 +58,8 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
     private Box2DDebugRenderer b2dr;
 
     private Vector2 lastTouch = new Vector2();
+
+    private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/die.ogg"));
 
     public PlayScreen(Neonpolis game) {
         //stage = new GameStage(game);
@@ -116,6 +119,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
         // Player is dead if drop below ground
         if (player.b2body.getPosition().y + 4 <= 0) {
+            deathSound.play(2.0f);
             game.setScreen(new GameOverScreen(game));
         }
 
@@ -181,6 +185,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         renderer.dispose();
         world.dispose();
         b2dr.dispose();
+        deathSound.dispose();
     }
 
     @Override
@@ -256,6 +261,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
                 || fixtureB.getUserData() != null
                 && fixtureB.getUserData().equals("ground")){
             player.landed();
+
         }
     }
 

@@ -1,5 +1,7 @@
 package com.neonpolis.game.Sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -41,6 +43,11 @@ public class Vivica extends Sprite {
     public boolean jumping;
     public boolean dodging;
 
+    private Sound jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/jump.ogg"));
+    private Sound runSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/run.ogg"));
+    private Sound landSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/landing.ogg"));
+    private Sound slideSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/slide.ogg"));
+
     public Vivica(World world, PlayScreen screen) {
         this.world = world;
 
@@ -62,6 +69,7 @@ public class Vivica extends Sprite {
 
     public void update(float dt){
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+        runSound.play(1.7f);
         //setRegion(getFrame(dt));
     }
 
@@ -69,6 +77,7 @@ public class Vivica extends Sprite {
         setRegion(vivicaRun);
         setBounds(0, 0 ,18, 32);
         jumping = false;
+        landSound.play();
     }
 
     public void jump() {
@@ -76,6 +85,7 @@ public class Vivica extends Sprite {
             //b2body.applyLinearImpulse(new Vector2(b2body.getLinearVelocity().x, 270f), b2body.getWorldCenter(), true);
             b2body.setLinearVelocity(b2body.getLinearVelocity().x, 400);
             jumping = true;
+            jumpSound.play(2.0f);
         }
     }
 
@@ -110,6 +120,7 @@ public class Vivica extends Sprite {
         if (!(jumping && dodging)) {
             b2body.setTransform(b2body.getPosition(), (float) (-90f * (Math.PI / 180f)));
             dodging = true;
+            slideSound.play();
         }
     }
 
@@ -118,3 +129,5 @@ public class Vivica extends Sprite {
             b2body.setTransform(b2body.getPosition(), 0f);
     }
 }
+
+
