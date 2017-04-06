@@ -2,6 +2,7 @@ package com.neonpolis.game.Screens;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -21,6 +22,8 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.runtime.spriter.Timeline;
@@ -59,9 +62,10 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         //stage = new GameStage(game);
         this.game = game;
 
+        Gdx.input.setCatchBackKey(true);
         Gdx.input.setInputProcessor(this);
 
-        gamecam = new OrthographicCamera();
+        gamecam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         gamecam.setToOrtho(false, 250, 135);
 
         mapLoader = new TmxMapLoader();
@@ -114,6 +118,9 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         if (player.b2body.getPosition().y + 4 <= 0) {
             game.setScreen(new GameOverScreen(game));
         }
+
+        player.b2body.applyLinearImpulse(new Vector2(3.5f, 0), player.b2body.getWorldCenter(), true);
+        player.setBounds(0, 0 ,23, 41);
     }
 
     public void handleInput(float dt) {
@@ -127,10 +134,10 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
         // move right
         if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500) {
-            player.b2body.applyLinearImpulse(new Vector2(4, 0), player.b2body.getWorldCenter(), true);
+            //player.b2body.applyLinearImpulse(new Vector2(3, 0), player.b2body.getWorldCenter(), true);
             if (!player.jumping)
                 player.setRegion(player.vivicaRun);
-                player.setBounds(0, 0 ,26, 41);
+                player.setBounds(0, 0 ,23, 41);
         }
         /* move left
         if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500)
@@ -145,7 +152,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         player.update(dt);
 
         // attach gamecam to player coordinates
-        if (player.b2body.getPosition().x >= 220 / 2)
+        if (player.b2body.getPosition().x >= 250 / 2)
             gamecam.position.x = player.b2body.getPosition().x;
         // update gamecam with correct coordinates
         gamecam.update();
@@ -178,6 +185,10 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
     @Override
     public boolean keyDown(int keycode) {
+        if(keycode == Input.Keys.BACK) {
+            game.setScreen(new MenuScreen(game));
+        }
+
         return false;
     }
 
@@ -214,7 +225,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         if (delta.y < -20 && !player.jumping && !player.dodging) {
             player.setRegion(player.vivicaJump);
             player.jump();
-            player.setBounds(0, 0 ,26, 41);
+            player.setBounds(0, 0 ,23, 41);
         }
         else if (delta.y > 35 && !player.jumping) {
             //player.dodge();

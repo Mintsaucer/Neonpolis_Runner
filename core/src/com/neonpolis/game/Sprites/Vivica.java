@@ -5,12 +5,14 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.neonpolis.game.Neonpolis;
@@ -64,13 +66,15 @@ public class Vivica extends Sprite {
     }
 
     public void landed() {
+        setRegion(vivicaRun);
+        setBounds(0, 0 ,26, 41);
         jumping = false;
     }
 
     public void jump() {
         if (!(jumping && dodging)) {
-            //b2body.applyLinearImpulse(new Vector2(0, 200), b2body.getWorldCenter(), true);
-            b2body.setLinearVelocity(0,220);
+            //b2body.applyLinearImpulse(new Vector2(b2body.getLinearVelocity().x, 270f), b2body.getWorldCenter(), true);
+            b2body.setLinearVelocity(b2body.getLinearVelocity().x, 250);
             jumping = true;
         }
     }
@@ -84,10 +88,10 @@ public class Vivica extends Sprite {
 
         FixtureDef fdef = new FixtureDef();
         shape = new PolygonShape();
-        shape.setAsBox(9,20);
+        shape.setAsBox(9, 20);
 
         fdef.shape = shape;
-        fdef.friction = 0.7f;
+        fdef.friction = 0.5f;
         b2body.createFixture(fdef).setUserData("vivica");
     }
 

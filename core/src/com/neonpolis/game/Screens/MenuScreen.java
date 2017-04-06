@@ -39,11 +39,12 @@ public class MenuScreen implements Screen {
         batch = new SpriteBatch();
         stage = new Stage();
 
+        Gdx.input.setCatchBackKey(false);
         Gdx.input.setInputProcessor(stage);
 
-        music = Neonpolis.manager.get("audio/music/mario_music.ogg", Music.class);
-        music.setLooping(true);
-        music.play();
+        //music = Neonpolis.manager.get("audio/music/mario_music.ogg", Music.class);
+        //music.setLooping(true);
+        //music.play();
     }
 
     @Override

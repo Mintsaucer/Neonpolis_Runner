@@ -34,7 +34,7 @@ public class B2WorldCreator {
 
             bdef.type = BodyDef.BodyType.StaticBody;
 
-            bdef.position.set((rect.getX() + rect.getWidth() / 2), (rect.getY() + rect.getHeight() / 2));
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) , (rect.getY() + rect.getHeight() / 2));
             body = world.createBody(bdef);
 
             shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
