@@ -60,10 +60,15 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
     private Vector2 lastTouch = new Vector2();
 
     private Sound deathSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/die.ogg"));
+    private Music mp3Music = Gdx.audio.newMusic(Gdx.files.internal("audio/music/snap_music.mp3"));
 
     public PlayScreen(Neonpolis game) {
         //stage = new GameStage(game);
         this.game = game;
+
+        mp3Music.setVolume(0.5f);
+        mp3Music.setLooping(true);
+        mp3Music.play();
 
         Gdx.input.setCatchBackKey(true);
         Gdx.input.setInputProcessor(this);
@@ -120,6 +125,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         // Player is dead if drop below ground
         if (player.b2body.getPosition().y + 4 <= 0) {
             deathSound.play(2.0f);
+            mp3Music.stop();
             game.setScreen(new GameOverScreen(game));
         }
 
@@ -186,6 +192,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         world.dispose();
         b2dr.dispose();
         deathSound.dispose();
+        mp3Music.dispose();
     }
 
     @Override
