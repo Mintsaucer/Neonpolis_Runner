@@ -77,7 +77,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         gamecam.setToOrtho(false, 250, 135);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("level1.tmx");
+        map = mapLoader.load("alku.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1);
 
         world = new World(new Vector2(0, -45), true);
