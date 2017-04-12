@@ -144,7 +144,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
         // move right
         if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500) {
-            //player.b2body.applyLinearImpulse(new Vector2(3, 0), player.b2body.getWorldCenter(), true);
+            player.b2body.applyLinearImpulse(new Vector2(3, 0), player.b2body.getWorldCenter(), true);
             if (!player.jumping)
                 player.setRegion(player.vivicaRun);
                 player.setBounds(0, 0 ,18, 31);
