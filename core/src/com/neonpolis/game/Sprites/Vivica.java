@@ -53,11 +53,11 @@ public class Vivica extends Sprite {
 
         // Create player body type, size, etc...
         defineVivica();
-        texture = new Texture("vivica.png");
-        vivicaStand = new TextureRegion(texture, 1, 0, 50, 166);
-        vivicaRun = new TextureRegion(texture, 50, 10, 170, 156);
-        vivicaJump = new TextureRegion(texture, 223, 10, 140, 146);
-        vivicaSlide = new TextureRegion(texture, 385, 10, 60, 220);
+        texture = new Texture("vivica_ei.png");
+        vivicaStand = new TextureRegion(texture, 20, 10, 50, 173);
+        vivicaRun = new TextureRegion(texture, 70, 17, 170, 156);
+        vivicaJump = new TextureRegion(texture, 235, 30, 140, 146);
+        //vivicaSlide = new TextureRegion(texture, 385, 10, 60, 220);
 
         setBounds(0, 0 ,17, 32);
         setRegion(vivicaStand);
