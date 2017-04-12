@@ -130,16 +130,16 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         }
 
         player.b2body.applyLinearImpulse(new Vector2(2.5f, 0), player.b2body.getWorldCenter(), true);
-        player.setBounds(0, 0 ,18, 32);
+        player.setBounds(0, 0 ,18, 31);
     }
 
     public void handleInput(float dt) {
         int posX = Gdx.input.getX();
         int posY = Gdx.input.getY();
 
-        if (!player.jumping && player.b2body.getLinearVelocity().x == 0) {
+        if (!player.jumping && player.b2body.getLinearVelocity().x == 0 && !player.dodging) {
             player.setRegion(player.vivicaStand);
-            player.setBounds(0, 0 ,18, 32);
+            player.setBounds(0, 0 ,18, 31);
         }
 
         // move right
@@ -147,7 +147,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
             //player.b2body.applyLinearImpulse(new Vector2(3, 0), player.b2body.getWorldCenter(), true);
             if (!player.jumping)
                 player.setRegion(player.vivicaRun);
-                player.setBounds(0, 0 ,18, 32);
+                player.setBounds(0, 0 ,18, 31);
         }
         /* move left
         if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500)
@@ -224,6 +224,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         if (player.dodging) {
             player.stopDodge();
+            player.setRotation(0);
         }
         return true;
     }
@@ -237,10 +238,13 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         if (delta.y < -20 && !player.jumping && !player.dodging) {
             player.setRegion(player.vivicaJump);
             player.jump();
-            player.setBounds(0, 0, 18, 32);
+            player.setBounds(0, 0, 18, 31);
         }
         else if (delta.y > 35 && !player.jumping) {
+            //player.setRegion(player.vivicaSlide);
             //player.dodge();
+            //player.setBounds(0, 0, 18, 35);
+            //player.setRotation(90);
         }
         lastTouch = newTouch;
 

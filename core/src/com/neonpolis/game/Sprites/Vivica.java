@@ -34,7 +34,7 @@ public class Vivica extends Sprite {
     public World world;
     public Body b2body;
     public PolygonShape shape;
-    public TextureRegion vivicaStand, vivicaRun, vivicaJump;
+    public TextureRegion vivicaStand, vivicaRun, vivicaJump, vivicaSlide;
     public Texture texture;
     private Animation run;
     private Animation jump;
@@ -55,8 +55,9 @@ public class Vivica extends Sprite {
         defineVivica();
         texture = new Texture("vivica.png");
         vivicaStand = new TextureRegion(texture, 1, 0, 50, 166);
-        vivicaRun = new TextureRegion(texture, 50, 10, 170,156);
-        vivicaJump = new TextureRegion(texture, 220, 10, 143,146);
+        vivicaRun = new TextureRegion(texture, 50, 10, 170, 156);
+        vivicaJump = new TextureRegion(texture, 223, 10, 140, 146);
+        vivicaSlide = new TextureRegion(texture, 385, 10, 60, 220);
 
         setBounds(0, 0 ,17, 32);
         setRegion(vivicaStand);
