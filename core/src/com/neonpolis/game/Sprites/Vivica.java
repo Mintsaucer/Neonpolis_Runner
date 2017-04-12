@@ -37,9 +37,6 @@ public class Vivica extends Sprite {
     public TextureRegion vivicaStand, vivicaRun, vivicaJump, vivicaSlide;
     public Texture texture;
     private Animation run;
-    private Animation jump;
-    private float stateTimer;
-    private boolean runningRight;
     public boolean jumping;
     public boolean dodging;
 
@@ -53,19 +50,14 @@ public class Vivica extends Sprite {
 
         // Create player body type, size, etc...
         defineVivica();
-        texture = new Texture("vivica_ei.png");
+        texture = new Texture("vivica_moves.png");
         vivicaStand = new TextureRegion(texture, 20, 10, 50, 173);
-        vivicaRun = new TextureRegion(texture, 70, 17, 170, 156);
-        vivicaJump = new TextureRegion(texture, 235, 30, 140, 146);
+        vivicaRun = new TextureRegion(texture, 77, 17, 170, 156);
+        vivicaJump = new TextureRegion(texture, 460, 30, 140, 146);
         //vivicaSlide = new TextureRegion(texture, 385, 10, 60, 220);
 
         setBounds(0, 0 ,17, 32);
         setRegion(vivicaStand);
-
-        currentState = State.STANDING;
-        previousState = State.STANDING;
-        stateTimer = 0;
-        runningRight = true;
     }
 
     public void update(float dt){
