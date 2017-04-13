@@ -82,7 +82,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
         worldcreator = new B2WorldCreator(world, map);
 
-        player = new Vivica(world, this);
+        player = new Vivica(world, this, game);
         enemy = new Enemy(world,this);
         hud = new Hud(game.batch);
     }
@@ -285,7 +285,8 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
                 && fixtureB.getUserData() != null
                 && fixtureB.getUserData().equals("enemy")) {
 
-            game.setScreen(new GameOverScreen(game));
+            player.b2body.applyLinearImpulse(new Vector2(-300, 180), player.b2body.getWorldCenter(), true);
+            player.enemyHit();
         }
     }
 

@@ -29,7 +29,7 @@ public Enemy(World world, PlayScreen screen) {
     texture = new Texture("enemy.png");
     enemy = new TextureRegion(texture, 0, 0, 165, 150);
 
-    setBounds(0, 0 ,17, 17);
+    setBounds(0, 0 ,19, 19);
     setRegion(enemy);
     }
 
@@ -41,7 +41,7 @@ public Enemy(World world, PlayScreen screen) {
 
         FixtureDef fdef = new FixtureDef();
         shape = new PolygonShape();
-        shape.setAsBox(9, 9);
+        shape.setAsBox(10, 10);
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData("enemy");
