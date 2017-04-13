@@ -129,8 +129,8 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
             game.setScreen(new GameOverScreen(game));
         }
 
-        player.b2body.applyLinearImpulse(new Vector2(2.5f, 0), player.b2body.getWorldCenter(), true);
-        player.setBounds(0, 0 ,18, 31);
+        player.b2body.applyLinearImpulse(new Vector2(2.8f, 0), player.b2body.getWorldCenter(), true);
+        player.setBounds(0, 0 ,18, 32);
     }
 
     public void handleInput(float dt) {
@@ -144,10 +144,10 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
         // move right
         if (Gdx.input.isTouched() && posX > 1920 / 2 && posX > 500) {
-            player.b2body.applyLinearImpulse(new Vector2(3, 0), player.b2body.getWorldCenter(), true);
+            //player.b2body.applyLinearImpulse(new Vector2(2.8f, 0), player.b2body.getWorldCenter(), true);
             if (!player.jumping)
-                player.setRegion(player.vivicaRun);
-                player.setBounds(0, 0 ,18, 31);
+                    player.setRegion(player.vivicaRun);
+                    player.setBounds(0, 0, 18, 32);
         }
         /* move left
         if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500)
@@ -200,7 +200,6 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         if(keycode == Input.Keys.BACK) {
             game.setScreen(new MenuScreen(game));
         }
-
         return false;
     }
 
@@ -238,7 +237,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         if (delta.y < -20 && !player.jumping && !player.dodging) {
             player.setRegion(player.vivicaJump);
             player.jump();
-            player.setBounds(0, 0, 18, 31);
+            player.setBounds(0, 0, 18, 32);
         }
         else if (delta.y > 35 && !player.jumping) {
             //player.setRegion(player.vivicaSlide);
@@ -267,12 +266,21 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         Fixture fixtureB = contact.getFixtureB();
 
         // Check if player and ground touch
-        if(fixtureA.getUserData() != null
+        if (fixtureA.getUserData() != null
                 || fixtureA.getUserData().equals("vivica")
                 || fixtureB.getUserData() != null
-                && fixtureB.getUserData().equals("ground")){
-            player.landed();
+                && fixtureB.getUserData().equals("ground")) {
 
+            player.landed();
+        }
+
+        // Check if player and win-area touch
+        if (fixtureA.getUserData() != null
+                && fixtureA.getUserData().equals("win")
+                && fixtureB.getUserData() != null
+                && fixtureB.getUserData().equals("vivica")) {
+
+            game.setScreen(new MenuScreen(game));
         }
     }
 

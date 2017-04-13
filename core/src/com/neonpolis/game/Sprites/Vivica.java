@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.neonpolis.game.Neonpolis;
 import com.neonpolis.game.Screens.PlayScreen;
 import com.neonpolis.game.Utils.Constants;
@@ -27,16 +28,12 @@ import com.neonpolis.game.Utils.Constants;
 
 public class Vivica extends Sprite {
 
-    public enum State {FALLING, JUMPING, STANDING, RUNNING};
-
-    public State currentState;
-    public State previousState;
     public World world;
     public Body b2body;
     public PolygonShape shape;
-    public TextureRegion vivicaStand, vivicaRun, vivicaJump, vivicaSlide;
+    public TextureRegion vivicaStand, vivicaRun, vivicaRun2, vivicaJump, vivicaSlide;
     public Texture texture;
-    private Animation run;
+    public Animation run;
     public boolean jumping;
     public boolean dodging;
 
@@ -53,6 +50,7 @@ public class Vivica extends Sprite {
         texture = new Texture("vivica_moves.png");
         vivicaStand = new TextureRegion(texture, 20, 10, 50, 173);
         vivicaRun = new TextureRegion(texture, 77, 17, 170, 156);
+        vivicaRun2 = new TextureRegion(texture, 240, 17, 170, 156);
         vivicaJump = new TextureRegion(texture, 460, 30, 140, 146);
         //vivicaSlide = new TextureRegion(texture, 385, 10, 60, 220);
 
@@ -87,7 +85,7 @@ public class Vivica extends Sprite {
         bdef.position.set(30, 25);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
-        b2body.setGravityScale(5.2f);
+        b2body.setGravityScale(6.5f);
 
         FixtureDef fdef = new FixtureDef();
         shape = new PolygonShape();
@@ -96,17 +94,6 @@ public class Vivica extends Sprite {
         fdef.shape = shape;
         fdef.friction = 0.5f;
         b2body.createFixture(fdef).setUserData("vivica");
-    }
-
-    public State getState() {
-        if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
-            return State.JUMPING;
-        else if(b2body.getLinearVelocity().y < 0 )
-            return State.FALLING;
-        else if (b2body.getLinearVelocity().x != 0)
-            return State.RUNNING;
-        else
-            return State.STANDING;
     }
 
     public void dodge() {
