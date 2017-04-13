@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="220" height="9" tilewidth="16" tileheight="16" nextobjectid="25">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="220" height="9" tilewidth="16" tileheight="16" nextobjectid="30">
  <imagelayer name="Image Layer 1">
   <image source="Alkukentta_2.5-0.png" width="1792" height="144"/>
  </imagelayer>
@@ -21,14 +21,15 @@
   <object id="14" x="1511" y="84" width="49" height="59"/>
   <object id="15" x="1616.67" y="108" width="28" height="37"/>
   <object id="16" x="1708" y="106.667" width="83" height="38"/>
+  <object id="28" x="-2" y="116.667" width="255.333" height="9.33333"/>
  </objectgroup>
  <objectgroup name="voitto">
   <object id="17" x="1808.67" y="0.666667" width="17" height="142.667"/>
   <object id="21" x="1792" y="107.833" width="16" height="35.5"/>
   <object id="24" x="1792.67" y="0.666667" width="16" height="30.6667"/>
  </objectgroup>
- <objectgroup name="kolikot" visible="0"/>
- <layer name="Tile Layer 1" width="220" height="9" offsetx="3" offsety="-8">
+ <objectgroup name="kolikot"/>
+ <layer name="kolikot" width="220" height="9">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

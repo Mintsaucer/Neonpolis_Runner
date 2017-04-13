@@ -41,6 +41,7 @@ public class Vivica extends Sprite {
     private Sound runSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/run.ogg"));
     private Sound landSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/landing.ogg"));
     private Sound slideSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/slide.ogg"));
+    private float stateTimer;
 
     public Vivica(World world, PlayScreen screen) {
         this.world = world;
@@ -82,7 +83,7 @@ public class Vivica extends Sprite {
 
     public void defineVivica() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(30, 25);
+        bdef.position.set(30, 45);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
         b2body.setGravityScale(6.5f);

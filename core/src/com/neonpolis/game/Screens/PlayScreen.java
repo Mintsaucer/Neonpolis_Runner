@@ -9,13 +9,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -23,16 +20,11 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.kotcrab.vis.runtime.spriter.Timeline;
 import com.neonpolis.game.Neonpolis;
 import com.neonpolis.game.Scenes.Hud;
+import com.neonpolis.game.Sprites.Enemy;
 import com.neonpolis.game.Sprites.Vivica;
 import com.neonpolis.game.Utils.B2WorldCreator;
-import com.neonpolis.game.Utils.BodyUtils;
 
 
 /**
@@ -47,6 +39,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
     private Hud hud;
     private Music music;
     private Vivica player;
+    private Enemy enemy;
 
     private OrthographicCamera gamecam;
 
@@ -90,6 +83,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         worldcreator = new B2WorldCreator(world, map);
 
         player = new Vivica(world, this);
+        enemy = new Enemy(world,this);
         hud = new Hud(game.batch);
     }
 
@@ -113,6 +107,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
+        enemy.draw(game.batch);
         game.batch.end();
 
         //update stage
@@ -160,6 +155,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
         world.step(1 / 60f, 6, 2);
         player.update(dt);
+        enemy.update(dt);
 
         // attach gamecam to player coordinates
         if (player.b2body.getPosition().x >= 250 / 2)
@@ -281,6 +277,15 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
                 && fixtureB.getUserData().equals("vivica")) {
 
             game.setScreen(new MenuScreen(game));
+        }
+
+        // Check if player and enemy touch
+        if (fixtureA.getUserData() != null
+                && fixtureA.getUserData().equals("vivica")
+                && fixtureB.getUserData() != null
+                && fixtureB.getUserData().equals("enemy")) {
+
+            game.setScreen(new GameOverScreen(game));
         }
     }
 

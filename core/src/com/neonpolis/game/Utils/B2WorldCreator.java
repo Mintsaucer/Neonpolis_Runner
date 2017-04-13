@@ -56,7 +56,7 @@ public class B2WorldCreator {
             body.createFixture(fdef).setUserData("win");
         }
 
-        /* CREATE COIN BODIES/FIXTURES
+        /*CREATE COIN BODIES/FIXTURES
         for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -67,7 +67,7 @@ public class B2WorldCreator {
 
             //shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
             //fdef.shape = shape;
-            //body.createFixture(fdef);
-        }*/
+            //body.createFixture(fdef).setUserData("coin");
+        }  */
     }
 }
