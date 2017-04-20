@@ -26,8 +26,8 @@ public class Enemy_2 extends Sprite {
 
         defineEnemy();
 
-        texture = new Texture("enemy.png");
-        enemy = new TextureRegion(texture, 0, 0, 165, 150);
+        texture = new Texture("enemies.png");
+        enemy = new TextureRegion(texture, 10, 10, 500, 500);
 
         setBounds(0, 0 ,16, 16);
         setRegion(enemy);

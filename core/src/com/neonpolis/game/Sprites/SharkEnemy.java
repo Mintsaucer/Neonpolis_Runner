@@ -26,10 +26,12 @@ public class SharkEnemy extends Sprite {
 
         defineEnemy();
 
-        texture = new Texture("shark.png");
-        enemy = new TextureRegion(texture, 0, 0, 110, 301);
+        texture = new Texture("enemies.png");
+        enemy = new TextureRegion(texture, 1100, 30, 750, 300);
 
-        setBounds(0, 0 ,19, 37);
+        setRotation(-90);
+        setBounds(0, 0 , 52, 35);
+        setOriginCenter();
         setRegion(enemy);
     }
 

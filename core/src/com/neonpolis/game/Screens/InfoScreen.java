@@ -21,7 +21,7 @@ public class InfoScreen implements Screen {
         this.game = game;
 
         batch = new SpriteBatch();
-        textureInfo = new Texture("***.png");
+        textureInfo = new Texture("info.png");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class InfoScreen implements Screen {
 
         // playscreen starts when screen is touched.
         if(Gdx.input.justTouched())
-            game.setScreen(new MenuScreen(game));
+            game.setScreen(new PlayScreen(game));
     }
 
     @Override

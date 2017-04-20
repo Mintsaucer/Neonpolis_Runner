@@ -53,20 +53,22 @@ public class MenuScreen implements Screen {
         backgroundTexture = new Texture("background.png");
 
         playTexture = new Texture("playgame.png");
-        //infoTexture = new Texture("infonappi.png");
+        infoTexture = new Texture("infobutton.png");
 
         myTextureRegion = new TextureRegion(playTexture);
         myTexRegionDrawablePlay = new TextureRegionDrawable(myTextureRegion);
 
-        //myTextureRegion = new TextureRegion(infoTexture);
-        //myTexRegionDrawableInfo = new TextureRegionDrawable(myTextureRegion);
+        myTextureRegion = new TextureRegion(infoTexture);
+        myTexRegionDrawableInfo = new TextureRegionDrawable(myTextureRegion);
 
         button = new ImageButton(myTexRegionDrawablePlay);
-        //buttonInfo = new ImageButton(myTexRegionDrawableInfo);
+        buttonInfo = new ImageButton(myTexRegionDrawableInfo);
 
         table = new Table();
+        table.add(buttonInfo).padLeft(900).size(100,100);
+        table.row();
         table.add(button).center();
-        //table.add(buttonInfo);
+
 
         table.setSize(1100,1000);
         table.setFillParent(true);
@@ -85,6 +87,7 @@ public class MenuScreen implements Screen {
         @Override
         public void clicked(InputEvent event, float x, float y) {
             game.setScreen(new InfoScreen(game));
+            music.stop();
         }
     });
     }

@@ -178,7 +178,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         gamecam.update();
         renderer.setView(gamecam);
 
-        if (player.b2body.getPosition().x > enemy.b2body.getPosition().x  )
+        if (player.b2body.getPosition().x > 40  )
             hud.updateHud();
     }
 

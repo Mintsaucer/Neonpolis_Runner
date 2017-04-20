@@ -26,8 +26,8 @@ public Enemy(World world, PlayScreen screen) {
 
     defineEnemy();
 
-    texture = new Texture("enemy.png");
-    enemy = new TextureRegion(texture, 0, 0, 165, 150);
+    texture = new Texture("enemies.png");
+    enemy = new TextureRegion(texture, 1250, 550, 500, 450);
 
     setBounds(0, 0 ,19, 19);
     setRegion(enemy);
