@@ -28,11 +28,11 @@ public class MenuScreen implements Screen {
     private Music music;
 
     private TextureRegion myTextureRegion;
-    private TextureRegionDrawable myTexRegionDrawablePlay, myTexRegionDrawableLoad, myTexRegionDrawableSetting, myTexRegionDrawableSoundSetting;
-    private ImageButton button, button2, button3, button4;
+    private TextureRegionDrawable myTexRegionDrawablePlay, myTexRegionDrawableInfo;
+    private ImageButton button, buttonInfo;
     private Table table;
 
-    public static Texture backgroundTexture, playTexture, loadTexture, settingTexture, soundSettingTexture;
+    public static Texture backgroundTexture, playTexture, infoTexture;
 
     public MenuScreen (final Neonpolis game) {
         this.game = game;
@@ -53,33 +53,21 @@ public class MenuScreen implements Screen {
         backgroundTexture = new Texture("background.png");
 
         playTexture = new Texture("playgame.png");
-        //loadTexture = new Texture("loadgame.png");
-        //settingTexture = new Texture("setting.png");
-        //soundSettingTexture = new Texture("soundsetting.png");
+        //infoTexture = new Texture("infonappi.png");
 
         myTextureRegion = new TextureRegion(playTexture);
         myTexRegionDrawablePlay = new TextureRegionDrawable(myTextureRegion);
 
-        //myTextureRegion = new TextureRegion(loadTexture);
-        //myTexRegionDrawableLoad = new TextureRegionDrawable(myTextureRegion);
-
-        //myTextureRegion = new TextureRegion(settingTexture);
-        //myTexRegionDrawableSetting = new TextureRegionDrawable(myTextureRegion);
-
-        //myTextureRegion = new TextureRegion(soundSettingTexture);
-        //myTexRegionDrawableSoundSetting = new TextureRegionDrawable(myTextureRegion);
+        //myTextureRegion = new TextureRegion(infoTexture);
+        //myTexRegionDrawableInfo = new TextureRegionDrawable(myTextureRegion);
 
         button = new ImageButton(myTexRegionDrawablePlay);
-        //button2 = new ImageButton(myTexRegionDrawableLoad);
-        //button3 = new ImageButton(myTexRegionDrawableSetting);
-        //button4 = new ImageButton(myTexRegionDrawableSoundSetting);
+        //buttonInfo = new ImageButton(myTexRegionDrawableInfo);
 
         table = new Table();
         table.add(button).center();
-        //table.add(button2);
-        //table.row().pad(30);
-        //table.add(button3);
-        //table.add(button4);
+        //table.add(buttonInfo);
+
         table.setSize(1100,1000);
         table.setFillParent(true);
         stage.addActor(table); //Add the button to the stage
@@ -92,6 +80,13 @@ public class MenuScreen implements Screen {
                 music.stop();
             }
         });
+
+        buttonInfo.addListener( new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+            game.setScreen(new InfoScreen(game));
+        }
+    });
     }
 
     @Override
