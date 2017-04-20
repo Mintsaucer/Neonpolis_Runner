@@ -20,7 +20,6 @@ import com.neonpolis.game.Actors.Ground;
 import com.neonpolis.game.Actors.Runner;
 import com.neonpolis.game.Neonpolis;
 import com.neonpolis.game.Screens.GameOverScreen;
-import com.neonpolis.game.Screens.MenuScreen;
 import com.neonpolis.game.Utils.BodyUtils;
 import com.neonpolis.game.Utils.WorldUtils;
 
@@ -119,12 +118,12 @@ public class GameStage extends Stage implements ContactListener {
                 createEnemy();
             }
             if (BodyUtils.bodyIsRunner(body)) {
-                game.setScreen( new GameOverScreen(game));
+                //game.setScreen( new GameOverScreen(game, hud.gold));
             }
             world.destroyBody(body);
 
             if (runner.isHit()) {
-                game.setScreen( new GameOverScreen(game));
+                //game.setScreen( new GameOverScreen(game, hud.gold));
             }
         }
     }

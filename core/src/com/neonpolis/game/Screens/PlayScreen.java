@@ -129,7 +129,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         if (player.b2body.getPosition().y + 4 <= 0) {
             deathSound.play(2.0f);
             mp3Music.stop();
-            game.setScreen(new GameOverScreen(game));
+            game.setScreen(new GameOverScreen(game, hud.gold));
         }
 
         player.b2body.applyLinearImpulse(new Vector2(2.8f, 0), player.b2body.getWorldCenter(), true);
@@ -177,6 +177,9 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         // update gamecam with correct coordinates
         gamecam.update();
         renderer.setView(gamecam);
+
+        if (player.b2body.getPosition().x > enemy.b2body.getPosition().x  )
+            hud.updateHud();
     }
 
     @Override
@@ -301,6 +304,9 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
             player.b2body.applyLinearImpulse(new Vector2(-300, 180), player.b2body.getWorldCenter(), true);
             player.enemyHit();
+
+            if (player.health == 0)
+                game.setScreen(new GameOverScreen(game, hud.gold));
         }
     }
 

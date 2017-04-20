@@ -42,16 +42,14 @@ public class Hud implements Disposable{
     private static Texture hudUIPicture;
 
     //Integers for gold and diamonds
-    private Integer gold;
-    private Integer diamonds;
+    public Integer gold = 0;
+    private Integer diamonds = 0;
 
-    Label goldLabel;
-    Label diamondLabel;
-    Label characterLabel;
+    public Label goldLabel;
+    private Label diamondLabel;
+    private Label characterLabel;
 
     public Hud(SpriteBatch sb) {
-        gold = 0;
-        diamonds = 0;
         hudCam = new OrthographicCamera();
         hudViewport = new FitViewport(1920,1080, hudCam);
         stage = new Stage(hudViewport, sb);
@@ -66,7 +64,6 @@ public class Hud implements Disposable{
         table.add(pauseBtn).padTop(10);
         table.setPosition(1, 637);
         table.setSize(656, 423);
-
 
         //Wrapper and setting position for text objects (health bar text, name, scores, diamonds)
         goldLabel = new Label(String.format("%04d", gold), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -97,6 +94,11 @@ public class Hud implements Disposable{
         stage.addActor(goldWrapper);
         stage.addActor(diamWrapper);
         stage.addActor(charWrapper);
+    }
+
+    public void updateHud() {
+        gold += 5;
+        goldLabel.setText(gold.toString());
     }
 
     @Override

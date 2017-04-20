@@ -6,22 +6,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.neonpolis.game.Neonpolis;
-import com.neonpolis.game.Screens.GameOverScreen;
+import com.neonpolis.game.Scenes.Hud;
 import com.neonpolis.game.Screens.PlayScreen;
-import com.neonpolis.game.Utils.Constants;
 
 /**
  * Created by Lauri on 21.3.2017.
@@ -38,6 +30,7 @@ public class Vivica extends Sprite {
     public boolean jumping;
     public boolean dodging;
     private Neonpolis game;
+    Hud hud;
 
     private Sound jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/jump.ogg"));
     private Sound runSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/run.ogg"));
@@ -118,9 +111,6 @@ public class Vivica extends Sprite {
 
     public void enemyHit() {
         health--;
-
-        if (health == 0)
-            game.setScreen(new GameOverScreen(game));
     }
 }
 

@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.neonpolis.game.Neonpolis;
+import com.neonpolis.game.Scenes.Hud;
 
 import static com.neonpolis.game.Screens.MenuScreen.backgroundTexture;
 
@@ -32,16 +33,16 @@ public class GameOverScreen implements Screen {
     private Table table;
     private OrthographicCamera camera;
     ScreenViewport viewport;
+    Hud hud;
 
-    private int score;
+    private Integer score = 0;
 
     Label gameOverLabel, scoreLabel;
 
-    public GameOverScreen(Neonpolis game) {
+    public GameOverScreen(Neonpolis game, Integer gold) {
         this.game = game;
 
-        score = 0;
-
+        score = gold;
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         viewport = new ScreenViewport(camera);
@@ -58,19 +59,18 @@ public class GameOverScreen implements Screen {
 
         table = new Table();
         gameOverLabel = new Label(("GAME OVER!"), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        gameOverLabel.setFontScale(4);
+        gameOverLabel.setFontScale(5);
         table.add(gameOverLabel).center();
         table.row().pad(50);
 
-        scoreLabel = new Label(String.format("%04d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel.setFontScale(3);
+        scoreLabel = new Label(String.format("%04d",score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel.setFontScale(4);
         table.setSize(306,423);
         table.add(scoreLabel).center();
 
         table.setFillParent(true);
         stage.addActor(table);
     }
-
 
     @Override
     public void show() {
