@@ -11,37 +11,37 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.neonpolis.game.Screens.PlayScreen;
 
 /**
- * Created by Lauri on 13.4.2017.
+ * Created by Lauri on 20.4.2017.
  */
 
-public class Enemy extends Sprite {
+public class SharkEnemy extends Sprite {
     public World world;
     public Body b2body;
     public PolygonShape shape;
     private Texture texture;
     public TextureRegion enemy;
 
-public Enemy(World world, PlayScreen screen) {
-    this.world = world;
+    public SharkEnemy(World world, PlayScreen screen) {
+        this.world = world;
 
-    defineEnemy();
+        defineEnemy();
 
-    texture = new Texture("enemy.png");
-    enemy = new TextureRegion(texture, 0, 0, 165, 150);
+        texture = new Texture("shark.png");
+        enemy = new TextureRegion(texture, 0, 0, 110, 301);
 
-    setBounds(0, 0 ,19, 19);
-    setRegion(enemy);
+        setBounds(0, 0 ,19, 37);
+        setRegion(enemy);
     }
 
     private void defineEnemy() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(285, 40);
+        bdef.position.set(920, 50);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         FixtureDef fdef = new FixtureDef();
         shape = new PolygonShape();
-        shape.setAsBox(10, 10);
+        shape.setAsBox(10, 17);
 
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData("enemy");
@@ -52,9 +52,7 @@ public Enemy(World world, PlayScreen screen) {
     }
 
     public void enemyMovement() {
-        if (b2body.getLinearVelocity().x == 0 || b2body.getPosition().x > 285)
-            b2body.setLinearVelocity(-35, 0);
-        if (b2body.getPosition().x < 270)
-            b2body.setLinearVelocity(30, 0);
+        if (b2body.getLinearVelocity().y == 0)
+            b2body.setLinearVelocity(0, 50);
     }
 }

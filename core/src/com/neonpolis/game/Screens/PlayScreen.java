@@ -23,6 +23,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.neonpolis.game.Neonpolis;
 import com.neonpolis.game.Scenes.Hud;
 import com.neonpolis.game.Sprites.Enemy;
+import com.neonpolis.game.Sprites.Enemy_2;
+import com.neonpolis.game.Sprites.SharkEnemy;
 import com.neonpolis.game.Sprites.Vivica;
 import com.neonpolis.game.Utils.B2WorldCreator;
 
@@ -40,6 +42,8 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
     private Music music;
     private Vivica player;
     private Enemy enemy;
+    private Enemy_2 enemy_2;
+    private SharkEnemy sharkEnemy;
 
     private OrthographicCamera gamecam;
 
@@ -84,6 +88,8 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
         player = new Vivica(world, this, game);
         enemy = new Enemy(world,this);
+        enemy_2 = new Enemy_2(world,this);
+        sharkEnemy = new SharkEnemy(world, this);
         hud = new Hud(game.batch);
     }
 
@@ -102,12 +108,14 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         game.batch.setProjectionMatrix(gamecam.combined);
 
         // render Box2DDebug lines
-        b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);
 
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
         player.draw(game.batch);
         enemy.draw(game.batch);
+        enemy_2.draw(game.batch);
+        sharkEnemy.draw(game.batch);
         game.batch.end();
 
         //update stage
@@ -126,6 +134,10 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
 
         player.b2body.applyLinearImpulse(new Vector2(2.8f, 0), player.b2body.getWorldCenter(), true);
         player.setBounds(0, 0 ,18, 32);
+
+        enemy.enemyMovement();
+        enemy_2.enemyMovement();
+        sharkEnemy.enemyMovement();
     }
 
     public void handleInput(float dt) {
@@ -156,6 +168,8 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         world.step(1 / 60f, 6, 2);
         player.update(dt);
         enemy.update(dt);
+        enemy_2.update(dt);
+        sharkEnemy.update(dt);
 
         // attach gamecam to player coordinates
         if (player.b2body.getPosition().x >= 250 / 2)
