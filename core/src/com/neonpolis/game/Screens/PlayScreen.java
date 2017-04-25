@@ -293,7 +293,7 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
                 && fixtureB.getUserData() != null
                 && fixtureB.getUserData().equals("vivica")) {
 
-            game.setScreen(new MenuScreen(game));
+            game.setScreen(new GameOverScreen(game, hud.gold));
         }
 
         // Check if player and enemy touch
