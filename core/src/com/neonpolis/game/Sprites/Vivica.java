@@ -26,11 +26,9 @@ public class Vivica extends Sprite {
     public PolygonShape shape;
     public TextureRegion vivicaStand, vivicaRun, vivicaRun2, vivicaJump, vivicaSlide;
     public Texture texture;
-    public Animation run;
     public boolean jumping;
     public boolean dodging;
     private Neonpolis game;
-    Hud hud;
 
     private Sound jumpSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/jump.ogg"));
     private Sound runSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/run.ogg"));
@@ -61,7 +59,6 @@ public class Vivica extends Sprite {
     public void update(float dt){
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         runSound.play(1.7f);
-        //setRegion(getFrame(dt));
     }
 
     public void landed() {

@@ -39,7 +39,6 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
     //private GameStage stage;
     private Neonpolis game;
     private Hud hud;
-    private Music music;
     private Vivica player;
     private Enemy enemy;
     private Enemy_2 enemy_2;
@@ -60,7 +59,6 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
     private Music mp3Music = Gdx.audio.newMusic(Gdx.files.internal("audio/music/snap_music.mp3"));
 
     public PlayScreen(Neonpolis game) {
-        //stage = new GameStage(game);
         this.game = game;
 
         mp3Music.setVolume(0.5f);
@@ -118,10 +116,6 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
         sharkEnemy.draw(game.batch);
         game.batch.end();
 
-        //update stage
-        //stage.draw();
-        //stage.act(delta);
-
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
@@ -156,9 +150,6 @@ public class PlayScreen implements Screen, InputProcessor, ContactListener {
                     player.setRegion(player.vivicaRun);
                     player.setBounds(0, 0, 18, 32);
         }
-        /* move left
-        if (Gdx.input.isTouched() && posX < 1920 / 2 && posX < 500)
-            player.b2body.applyLinearImpulse(new Vector2(-4, 0), player.b2body.getWorldCenter(), true); */
     }
 
     public void update(float dt) {
